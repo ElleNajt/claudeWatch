@@ -1,0 +1,68 @@
+{
+  "generated": "2025-08-21T23:28:41.011246",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/projective_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "good"
+    },
+    {
+      "uuid": "5f9bf493-abc1-4454-b5bb-cda6ef155c9d",
+      "index_in_sae": 25865,
+      "label": "Stream-of-consciousness rambling speech with filler words and self-corrections",
+      "type": "good"
+    },
+    {
+      "uuid": "767107f0-f427-4881-9126-1b44e49d6941",
+      "index_in_sae": 32899,
+      "label": "Collaborative brainstorming and exploring possibilities in dialogue",
+      "type": "good"
+    },
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "954a1e17-3ed0-4c84-9024-bd50f3f75df1",
+      "index_in_sae": 64316,
+      "label": "Complex explanatory language patterns and transitions between clauses",
+      "type": "good"
+    },
+    {
+      "uuid": "1758fa5c-da17-4888-bd9b-78463cf59f66",
+      "index_in_sae": 4021,
+      "label": "Discussions about causes and solutions for procrastination",
+      "type": "bad"
+    },
+    {
+      "uuid": "05eb2be0-3498-4ea7-ae5e-4ae7a1a1b836",
+      "index_in_sae": 45328,
+      "label": "Empathetic validation of difficult emotions",
+      "type": "bad"
+    },
+    {
+      "uuid": "7d5aa17b-89bd-45f5-bbae-1d37b105ec38",
+      "index_in_sae": 52235,
+      "label": "The text suggests seeking professional relationship counseling or therapy",
+      "type": "bad"
+    },
+    {
+      "uuid": "029463b7-b791-44a6-ad1c-34d4e23e1f06",
+      "index_in_sae": 18890,
+      "label": "Causal explanation patterns in text",
+      "type": "bad"
+    },
+    {
+      "uuid": "926d9712-a355-4d94-b342-41a559d75fa3",
+      "index_in_sae": 52588,
+      "label": "Explanations of psychological manipulation and emotional abuse tactics",
+      "type": "bad"
+    }
+  ]
+}

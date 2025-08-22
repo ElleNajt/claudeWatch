@@ -1,0 +1,14 @@
+{
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/projective_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_threshold": 2.0,
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "alert_strategy": "logistic_regression",
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "Authentic coaching detected!",
+  "bad_alert_message": "Projective coaching detected!",
+  "good_behavior_label": "AUTHENTIC",
+  "bad_behavior_label": "PROJECTIVE"
+}

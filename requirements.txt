@@ -1,0 +1,5 @@
+goodfire>=0.1.0
+numpy>=1.20.0
+python-dotenv>=0.19.0
+scikit-learn>=1.0.0
+shap>=0.40.0
