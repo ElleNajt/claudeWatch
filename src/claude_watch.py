@@ -93,10 +93,26 @@ class NotificationManager:
 
     def _send_log(self, message: str, alert_level: str):
         """Send to log file"""
-        # Use absolute path relative to project root
-        project_root = Path(__file__).parent.parent
-        log_file = project_root / "logs" / "notifications.log"
-        log_file.parent.mkdir(exist_ok=True)
+        # Try to detect project directory from environment (if running via hook)
+        project_dir = None
+
+        # Check if CLAUDE_PROJECT_DIR was set by hook
+        if os.environ.get("CLAUDE_PROJECT_DIR"):
+            project_dir = Path(os.environ["CLAUDE_PROJECT_DIR"])
+        else:
+            # Fallback to current working directory
+            project_dir = Path.cwd()
+
+        # Use project directory for logs
+        try:
+            log_dir = project_dir / "logs"
+            log_dir.mkdir(exist_ok=True)
+            log_file = log_dir / "notifications.log"
+        except (PermissionError, OSError):
+            # Fallback to ClaudeWatch project directory if project dir isn't writable
+            project_root = Path(__file__).parent.parent
+            log_file = project_root / "logs" / "notifications.log"
+            log_file.parent.mkdir(exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with open(log_file, "a") as f:

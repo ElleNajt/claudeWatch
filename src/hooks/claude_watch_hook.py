@@ -120,10 +120,8 @@ def main():
     # Configuration  
     CONFIG_PATH = os.environ.get('CLAUDE_WATCH_CONFIG', 
                                  str(Path(__file__).parent.parent.parent / 'configs' / 'coaching_examples.json'))
-    LOG_DIR = Path(__file__).parent.parent.parent / 'logs'
-    LOG_DIR.mkdir(exist_ok=True)
     
-    # Read hook event from stdin
+    # Read hook event from stdin first to get cwd and transcript path
     try:
         input_data = sys.stdin.read().strip()
         if not input_data:
@@ -136,8 +134,27 @@ def main():
     if event_data.get('hook_event_name') != 'Stop':
         sys.exit(0)
     
-    # Extract conversation
+    # Get project directory from cwd field in hook payload  
+    project_dir_str = event_data.get('cwd')
+    if project_dir_str:
+        project_dir = Path(project_dir_str)
+    else:
+        # Fallback to current directory if cwd not provided
+        project_dir = Path.cwd()
+    
+    # Get transcript path for conversation extraction
     transcript_path = event_data.get('transcript_path', '')
+    
+    # Use project directory for logs
+    LOG_DIR = project_dir / 'logs'
+    try:
+        LOG_DIR.mkdir(exist_ok=True)
+    except (PermissionError, OSError) as e:
+        # Fallback to ClaudeWatch project directory if project dir isn't writable
+        LOG_DIR = Path(__file__).parent.parent.parent / 'logs'
+        LOG_DIR.mkdir(exist_ok=True)
+    
+    # Extract conversation
     conversation = extract_conversation(transcript_path)
     
     if len(conversation) < 2:
@@ -153,6 +170,9 @@ def main():
     # Generate vectors if needed before analysis
     if not generate_vectors_if_needed(CONFIG_PATH):
         sys.exit(0)
+    
+    # Set environment variable so notification system knows project directory  
+    os.environ['CLAUDE_PROJECT_DIR'] = str(project_dir)
     
     # Load configuration and analyze
     try:

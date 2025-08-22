@@ -1,62 +1,40 @@
 # ClaudeWatch 🔍
 
-Real-time AI behavior monitoring using Sparse Autoencoder (SAE) discriminative features. Monitor Claude (or any AI assistant) for specific behavioral patterns and get alerts when unwanted behaviors are detected.
+Real-time AI behavior monitoring using Sparse Autoencoder (SAE) discriminative features. Monitor Claude Code responses for specific behavioral patterns and get instant alerts when unwanted behaviors are detected.
 
 ## What is this?
 
-ClaudeWatch uses interpretability techniques to create "semantic firewalls" for AI systems. Instead of using prompt engineering or traditional safety measures, it monitors actual behavioral patterns using SAE features extracted from contrast datasets.
+ClaudeWatch creates "semantic firewalls" for AI systems using interpretability techniques. Instead of relying on prompt engineering, it monitors actual behavioral patterns by analyzing SAE features extracted from contrastive training datasets.
 
 ## Features
 
-<<<<<<< /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-resultZajkGs.tmp
-- 🎯 **Discriminative Feature Detection**: Uses contrastive learning to identify specific behaviors
-- ⚡ **Real-time Monitoring**: Integrates with Claude Code hooks for live analysis
-- 🔧 **Customizable**: Create your own behavioral vectors from example datasets
-- 📊 **Detailed Logging**: Track quality scores, confidence levels, and feature activations
-- 🚨 **Smart Alerts**: Configurable thresholds for different severity levels
-||||||| /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-baseah1tdc.tmp
-- 🎯 **Discriminative Feature Detection**: Uses contrastive learning to identify behavioral patterns
-- ⚡ **Real-time Monitoring**: Integrates with Claude Code hooks for live response analysis  
-- 🔧 **Example-based Training**: Create behavioral vectors from realistic conversation examples
-- 🤖 **Auto-Vector Generation**: Automatically generates vectors when missing - zero setup required
-- 🏷️ **Feature Label Alerts**: Shows which specific SAE features triggered (not just generic alerts)
-- 📊 **Comprehensive Logging**: Track quality scores, feature activations, and full response details
-- 🚨 **Multi-modal Alerts**: CLI alerts, Emacs notifications, and file logging
-- ⚙️ **Configurable Messaging**: Customize alert terminology for your domain
-- 📁 **Professional Structure**: Clean Python package organization
-=======
 - 🎯 **Discriminative Feature Detection**: Uses contrastive learning to identify behavioral patterns
 - ⚡ **Real-time Monitoring**: Integrates with Claude Code hooks for live response analysis  
 - 🔧 **Example-based Training**: Create behavioral vectors from realistic conversation examples
 - 🤖 **Auto-Vector Generation**: Automatically generates vectors when missing - zero setup required
 - 🏷️ **Feature Label Alerts**: Shows which specific SAE features triggered (not just generic alerts)
 - 🧠 **SHAP Explanations**: Understand why classifications were made with feature importance scores
-- 🎛️ **Multiple Detection Strategies**: Choose from threshold-based, ratio-based, quality-based, or ML-based detection
+- 🎛️ **Configurable Thresholds**: Fine-tune detection sensitivity with logistic regression thresholds
+- 📂 **Project-Specific Logs**: Logs appear automatically in your current project directory
 - 📊 **Comprehensive Logging**: Track quality scores, feature activations, and full response details
 - 🚨 **Multi-modal Alerts**: CLI alerts, Emacs notifications, and file logging
 - ⚙️ **Configurable Messaging**: Customize alert terminology for your domain
-- 📁 **Professional Structure**: Clean Python package organization
->>>>>>> /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-changesQ9ZWg8.tmp
 
 ## Quick Start
 
-### 1. Install Dependencies
+### 1. Setup Environment
 
 ```bash
-pip install goodfire numpy
+# Activate virtual environment  
+source venv/bin/activate
+
+# Set your Goodfire API key
+echo "GOODFIRE_API_KEY=your_api_key_here" > .env
 ```
 
-### 2. Set Environment Variables
+### 2. Configure Claude Code Integration
 
-```bash
-export GOODFIRE_API_KEY=your_goodfire_api_key_here
-```
-
-### 3. Set Up Monitoring
-
-#### For Claude Code
-
-Add to your `.claude/settings.local.json`:
+Add to your Claude Code `.claude/settings.local.json`:
 
 ```json
 {
@@ -66,8 +44,8 @@ Add to your `.claude/settings.local.json`:
         "matcher": "",
         "hooks": [
           {
-            "type": "command",
-            "command": "/path/to/claudeWatch/hooks/wrapper.sh"
+            "type": "command", 
+            "command": "/Users/elle/code/claudeWatch/src/hooks/wrapper.sh"
           }
         ]
       }
@@ -76,62 +54,61 @@ Add to your `.claude/settings.local.json`:
 }
 ```
 
-<<<<<<< /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-resultRpg2c3.tmp
-### 4. Configure Behavior Detection
-||||||| /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-base9WAeZr.tmp
-### 4. Test the System
+### 3. Test the System
 
 ```bash
-# Test basic analysis
-python src/claude_watch.py configs/coaching_examples.json "You're clearly dealing with trust issues."
-
-# Test with SHAP explanations
-python src/claude_watch.py configs/coaching_logistic.json "You're procrastinating because you're afraid of failure."
-
-# Demo SHAP explanations
-python demo_shap_explanations.py
-```
-
-## Detection Strategies
-=======
-### 4. Test the System
-
-```bash
-# Test basic analysis
-python src/claude_watch.py configs/coaching_examples.json "You're clearly dealing with trust issues."
-
-# Test with SHAP explanations (default is logistic regression)
+# Test with SHAP explanations (default configuration)
 python src/claude_watch.py configs/coaching_examples.json "You're procrastinating because you're afraid of failure."
 
 # Demo SHAP explanations
 python demo_shap_explanations.py
 ```
 
-## Detection Strategies
->>>>>>> /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-changeshoQaLb.tmp
+### 4. Start Using Claude Code
 
-Create or modify `configs/default.json`:
+When you run Claude Code from any project directory, ClaudeWatch will automatically:
+- Monitor your conversations in real-time
+- Create logs in your project's `logs/` directory
+- Show SHAP explanations for why responses were flagged
+
+## How It Works
+
+### SHAP-Powered Classification
+
+ClaudeWatch uses logistic regression with SHAP explanations to show exactly why responses are classified:
+
+```
+❌ ClaudeWatch: Projective coaching detected! Predicted: projective (P=0.73) 
+| Why: Discussions about causes and s(+0.30→projective), Narrative transitions that may(-0.03→authentic)
+```
+
+This shows:
+- **Prediction confidence** (73% confident it's projective coaching)
+- **Top contributing features** with their SHAP values
+- **Direction of influence** (→projective pushes toward bad, →authentic pushes toward good)
+
+### Project-Specific Logging
+
+Logs automatically appear in your current working directory:
+
+```
+/Users/elle/code/myProject/     # <- Where you run Claude Code
+├── logs/
+│   ├── claude_watch.log        # Detailed analysis with SHAP values
+│   ├── notifications.log       # Alert history  
+│   └── errors.log              # Any hook errors
+├── my_code.py
+└── README.md
+```
+
+No configuration needed - ClaudeWatch detects where you're working and creates logs there.
+
+## Configuration
+
+The main configuration file is `configs/coaching_examples.json`:
 
 ```json
 {
-<<<<<<< /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-resultot2FCZ.tmp
-  "good_features_path": "./vectors/good_features.json",
-  "bad_features_path": "./vectors/bad_features.json",
-  "good_threshold": 0.1,
-  "bad_threshold": 0.1,
-  "alert_ratio": 2.0
-||||||| /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-baselbgeCr.tmp
-  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
-  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/projective_coaching.json", 
-  "model": "meta-llama/Llama-3.3-70B-Instruct",
-  "alert_strategy": "logistic_regression",
-  "feature_threshold": 0.05,
-  "notification_methods": ["cli", "emacs", "log"],
-  "good_alert_message": "Authentic coaching detected!",
-  "bad_alert_message": "Projective coaching detected!",
-  "good_behavior_label": "AUTHENTIC",
-  "bad_behavior_label": "PROJECTIVE"
-=======
   "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
   "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/projective_coaching.json", 
   "model": "meta-llama/Llama-3.3-70B-Instruct",
@@ -143,157 +120,203 @@ Create or modify `configs/default.json`:
   "bad_alert_message": "Projective coaching detected!",
   "good_behavior_label": "AUTHENTIC",
   "bad_behavior_label": "PROJECTIVE"
->>>>>>> /var/folders/wm/q6gwq3q56yj8rdyj_h_qhkd40000gn/T/claude-changesKALhyo.tmp
 }
 ```
 
-## Creating Custom Vectors
+### Key Parameters
 
-### 1. Prepare Example Datasets
+#### `logistic_threshold` (Confidence Control)
+Controls when alerts fire based on prediction confidence:
 
-Create JSON files with examples of good and bad behavior:
+```json
+{
+  "alert_strategy": "logistic_regression",
+  "logistic_threshold": 0.7  // Only alert if P(projective) > 70%
+}
+```
 
-**good_behavior.json:**
+**Recommended values:**
+- `0.6` - Somewhat confident (good for development/testing)  
+- `0.7` - Confident (balanced for production use) **← Default**
+- `0.8` - Very confident (low false positive rate)
+- `0.9` - Extremely confident (very conservative)
+
+This prevents noisy alerts on borderline cases like "Hello! What would you like to work on?" (P=0.494) and only alerts when genuinely confident about problematic patterns.
+
+#### `alert_strategy` Options
+- `"logistic_regression"` - ML-based with SHAP explanations (default)
+- `"any_bad_feature"` - Alert if any bad feature exceeds threshold
+- `"ratio"` - Alert if bad/good ratio exceeds threshold  
+- `"quality"` - Alert based on overall quality assessment
+
+#### `notification_methods`
+- `"cli"` - Stderr output for Claude Code integration
+- `"emacs"` - Send messages to Emacs via emacsclient
+- `"log"` - Write to log files in your project directory
+
+## Training Custom Models
+
+### 1. Prepare Training Data
+
+Create conversation examples in JSON format:
+
+**data/training/good_examples.json:**
 ```json
 [
-  "I hear that you're struggling. What does that feel like in your body?",
-  "That sounds really difficult. Tell me more about what's happening for you.",
-  "What would it look like if this situation resolved itself?"
+  {
+    "conversation": [
+      {"role": "user", "content": "I'm struggling with this decision"},
+      {"role": "assistant", "content": "What do you notice in your body as you think about each option?"}
+    ]
+  }
 ]
 ```
 
-**bad_behavior.json:**
+**data/training/bad_examples.json:**
 ```json
 [
-  "You should definitely quit your job immediately.",
-  "That's wrong. Here's what you need to do instead.",
-  "Stop feeling that way. You need to be more positive."
+  {
+    "conversation": [
+      {"role": "user", "content": "I'm struggling with this decision"},
+      {"role": "assistant", "content": "You're clearly overthinking this. Just pick option A."}
+    ]
+  }
 ]
 ```
 
-### 2. Generate Discriminative Vectors
+### 2. Generate Features & Train
 
 ```bash
-python scripts/create_vectors.py good_behavior.json bad_behavior.json ./my_vectors 20
+# Generate discriminative feature vectors
+python src/generate_vectors.py configs/coaching_examples.json
+
+# Train logistic regression classifier  
+python src/train_classifier.py configs/coaching_examples.json
 ```
 
-This creates:
-- Feature vectors that distinguish good from bad behavior
-- A configuration file for using these vectors
-- Detailed feature labels for interpretability
+This creates a balanced classifier with SHAP explanations enabled.
 
-## How It Works
-
-### Discriminative Features
-
-ClaudeWatch uses Contrastive Activation Addition (CAA) to identify features that distinguish desired from undesired behavior:
-
-```
-v = (1/n) * Σ[activations(good) - activations(bad)]
-```
-
-Features with positive weights indicate good behavior, while negative weights indicate bad behavior.
-
-### Quality Assessment
-
-Responses are classified as:
-- **GOOD**: High good features, low bad features (ratio < 0.5)
-- **HARMFUL**: High bad features, low good features (ratio > 2.0)  
-- **ACCEPTABLE**: More good than bad
-- **CONCERNING**: More bad than good
-- **UNCLEAR**: Insufficient signal
-
-### Real-time Monitoring
-
-1. Hooks capture AI responses
-2. SAE features are extracted
-3. Behavioral patterns are scored
-4. Alerts trigger if thresholds are exceeded
-
-## Example Use Cases
-
-### Coaching Quality
-Monitor for therapeutic vs harmful coaching patterns:
-- ✅ Good: Open questions, validation, curiosity
-- ❌ Bad: Direct advice, assumptions, invalidation
-
-### Code Safety
-Detect potentially dangerous code patterns:
-- ✅ Good: Input validation, error handling
-- ❌ Bad: Eval statements, SQL injection vectors
-
-## Architecture
+## Project Structure
 
 ```
 claudeWatch/
 ├── src/
-│   ├── claude_watch.py       # Core detection engine
-│   └── feature_extraction.py  # SAE feature pipeline
-├── hooks/
-│   ├── claude_watch_hook.py  # Claude Code integration
-│   └── wrapper.sh             # Shell wrapper
-├── vectors/
-│   └── [feature files]        # Discriminative vectors
+│   ├── claude_watch.py          # Core monitoring engine with SHAP
+│   ├── generate_vectors.py      # Feature extraction
+│   ├── train_classifier.py      # ML model training
+│   └── hooks/
+│       ├── claude_watch_hook.py # Claude Code integration
+│       └── wrapper.sh           # Shell wrapper
+├── data/
+│   ├── training/                # Training examples (Joe Hudson vs projective)
+│   └── vectors/                 # Generated discriminative features
+├── models/                      # Trained classifiers with SHAP
 ├── configs/
-│   └── default.json           # Configuration
-├── scripts/
-│   └── create_vectors.py      # Vector generation
-└── logs/
-    └── claude_watch.log       # Analysis logs
+│   └── coaching_examples.json   # Main configuration
+├── demo_shap_explanations.py    # Interactive SHAP demo
+└── requirements.txt             # Dependencies (includes SHAP)
 ```
 
-## Advanced Configuration
+## Use Cases
 
-### Thresholds
+### Coaching Quality Monitoring (Current)
+Monitor for authentic vs projective coaching patterns:
+- ✅ **Authentic**: "What do you notice in your body right now?"
+- ❌ **Projective**: "You're clearly dealing with trust issues."
 
-- `good_threshold`: Minimum score to consider good features significant
-- `bad_threshold`: Minimum score to consider bad features significant  
-- `alert_ratio`: Bad/good ratio that triggers alerts
+**Current Training Data:**
+- 20 authentic Joe Hudson coaching excerpts (somatic awareness, emotional inquiry)
+- 20 projective coaching examples (assumptions, diagnostic language)
 
-### Multiple Monitors
+### Content Safety  
+Detect harmful advice patterns:
+- ✅ **Safe**: Supportive, exploratory questions
+- ❌ **Harmful**: Direct medical/legal advice, assumptions
 
-Run different behavioral monitors simultaneously:
+### Code Safety
+Monitor for dangerous coding patterns:
+- ✅ **Safe**: Input validation, error handling  
+- ❌ **Risky**: Eval statements, injection vectors
 
-```bash
-CLAUDE_WATCH_CONFIG=./configs/coaching.json ./hooks/wrapper.sh
-CLAUDE_WATCH_CONFIG=./configs/safety.json ./hooks/wrapper.sh
+## Understanding SHAP Explanations
+
+### Reading SHAP Values
+
 ```
+🤖 Classifier Prediction: PROJECTIVE (confidence: 73.2%)
+
+🔍 Why this prediction? (SHAP explanations)
+• Discussions about causes and solutions for pr   strongly pushes toward PROJECTIVE (+0.291)
+• Narrative transitions that may lead to conten   moderately pushes toward AUTHENTIC (-0.055)  
+• Causal explanation patterns in text            slightly pushes toward PROJECTIVE (+0.011)
+```
+
+**How to interpret:**
+- **Positive values** (+0.291) push toward "projective" classification
+- **Negative values** (-0.055) push toward "authentic" classification
+- **Larger absolute values** = stronger influence on the decision
+- **Final prediction** is the sum of all these influences
 
 ## Troubleshooting
 
 ### Hook Not Triggering
 - Check hook configuration in `.claude/settings.local.json`
-- Verify wrapper script has execute permissions
-- Check logs in `logs/errors.log`
+- Verify wrapper script has execute permissions: `chmod +x src/hooks/wrapper.sh`
+- Check logs in your project's `logs/errors.log`
 
-### No Alerts
-- Lower thresholds in configuration
-- Verify feature files exist and are valid
-- Check if examples in dataset are distinctive enough
+### No SHAP Explanations
+- Ensure `alert_strategy: "logistic_regression"` in config
+- Install SHAP: `pip install shap` (included in requirements.txt)
+- Verify classifier model exists in `models/` directory
+- Retrain if needed: `python src/train_classifier.py configs/coaching_examples.json`
 
-### API Errors
-- Ensure Goodfire API key is set
-- Check API rate limits
-- Verify model availability
+### Adjusting Sensitivity
 
-## Contributing
+**Too many false positives?** Increase `logistic_threshold`:
+```json
+{"logistic_threshold": 0.8}  // More conservative
+```
 
-We welcome contributions! Areas of interest:
-- Additional example datasets
-- Integration with other AI systems
-- Improved feature extraction methods
-- Visualization tools
+**Missing real issues?** Decrease `logistic_threshold`:
+```json  
+{"logistic_threshold": 0.6}  // More sensitive
+```
+
+### Logs Not Appearing in Project Directory
+- Check if your project directory is writable
+- Logs will fallback to ClaudeWatch directory if permissions fail
+- Verify Claude Code hook is receiving `cwd` field in JSON payload
+
+### Poor Classification Performance
+- Add more training examples to your datasets
+- Ensure examples are clearly distinguishable  
+- Retrain classifier: `python src/train_classifier.py configs/coaching_examples.json`
+- Check feature importance scores in training output
+
+## Dependencies
+
+Install with:
+```bash
+pip install goodfire numpy python-dotenv scikit-learn shap
+```
+
+Or use the included requirements.txt:
+```bash
+pip install -r requirements.txt
+```
 
 ## License
 
-MIT License - See LICENSE file
+MIT License
 
 ## Acknowledgments
 
 Built using:
-- [Goodfire](https://goodfire.ai) - SAE feature extraction
+- [Goodfire](https://goodfire.ai) - SAE feature extraction  
+- [SHAP](https://shap.readthedocs.io/) - Model explainability
 - Inspired by mechanistic interpretability research
+- Joe Hudson coaching examples for authentic training data
 
 ---
 
-**Remember**: This is an exploratory prototype for AI safety research.
+**Remember**: This is an exploratory prototype for AI safety research. SHAP explanations help understand model decisions but should always be reviewed by humans. The system is designed to assist, not replace, human judgment in evaluating AI behavior.
