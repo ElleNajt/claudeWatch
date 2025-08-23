@@ -1,0 +1,68 @@
+{
+  "generated": "2025-08-23T10:45:01.328133",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/extreme_harmful_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "a426a1d8-51ec-4fb2-89ee-dfd6d66b62ae",
+      "index_in_sae": 39948,
+      "label": "Expressions of feeling inadequate or fraudulent",
+      "type": "good"
+    },
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "5f9bf493-abc1-4454-b5bb-cda6ef155c9d",
+      "index_in_sae": 25865,
+      "label": "Stream-of-consciousness rambling speech with filler words and self-corrections",
+      "type": "good"
+    },
+    {
+      "uuid": "767107f0-f427-4881-9126-1b44e49d6941",
+      "index_in_sae": 32899,
+      "label": "Collaborative brainstorming and exploring possibilities in dialogue",
+      "type": "good"
+    },
+    {
+      "uuid": "b6dac8a6-bcc6-4619-b67b-2b25cfd3e611",
+      "index_in_sae": 49279,
+      "label": "Expressions and contexts of cowardice and weakness, especially in mockery",
+      "type": "bad"
+    },
+    {
+      "uuid": "e2c6ccca-a4fa-4067-bba1-e1ebd0030ad0",
+      "index_in_sae": 17490,
+      "label": "Offensive or discriminatory statements being quoted or analyzed",
+      "type": "bad"
+    },
+    {
+      "uuid": "bf6e44e8-ed3e-4c7b-b19b-70c563332c75",
+      "index_in_sae": 9641,
+      "label": "Motivational content about perseverance and achievement",
+      "type": "bad"
+    },
+    {
+      "uuid": "832a4f15-e683-4a7f-b2e0-eb85317621ed",
+      "index_in_sae": 38676,
+      "label": "Expressions of dominance and superiority in harmful content",
+      "type": "bad"
+    },
+    {
+      "uuid": "7089b041-a3bd-4c65-95a0-0495bb8a75aa",
+      "index_in_sae": 26421,
+      "label": "Modal expressions of necessity or obligation, especially in contexts of demanded behavioral change",
+      "type": "bad"
+    }
+  ]
+}

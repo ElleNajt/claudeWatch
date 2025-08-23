@@ -1,0 +1,34 @@
+{
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/generated_examples/authentic_coaching_examples.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/generated_examples/projective_coaching_examples.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_strategy": "logistic_regression",
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "Authentic coaching detected!",
+  "bad_alert_message": "Projective coaching detected!",
+  "good_behavior_label": "AUTHENTIC",
+  "bad_behavior_label": "PROJECTIVE",
+  "_metadata": {
+    "description": "Enhanced configuration using diverse coaching examples from YouTube discovery",
+    "data_sources": [
+      "Somatic coaching sessions (authentic examples)",
+      "Therapeutic coaching sessions (authentic examples)", 
+      "Directive coaching sessions (projective examples)",
+      "Business coaching sessions (projective examples)",
+      "Generated conversation excerpts from real transcripts"
+    ],
+    "advantages": [
+      "More robust discrimination across coaching styles",
+      "Real-world training data from diverse coaches",
+      "Automatic training data generation pipeline",
+      "Better handling of edge cases and variations"
+    ],
+    "usage": {
+      "generate_examples": "python claude_watch_cli.py generate-examples --output-dir data/generated_examples",
+      "train_classifier": "python claude_watch_cli.py train configs/diverse_coaching.json --generated-data",
+      "test_system": "python claude_watch_cli.py analyze configs/diverse_coaching.json 'You clearly have trust issues that stem from your childhood.'"
+    }
+  }
+}

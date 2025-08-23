@@ -11,9 +11,12 @@ from pathlib import Path
 from datetime import datetime
 import numpy as np
 
-# Add parent directories to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from claude_watch import ClaudeWatch, WatchConfig
+# Add project root to path for imports
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
+from core.claude_watch import ClaudeWatch
+from core.config import WatchConfig
 
 
 def make_json_serializable(obj):
@@ -94,10 +97,10 @@ def generate_vectors_if_needed(config_path: str):
         if not vector_path.exists():
             print(f"Vectors not found at {vector_path}, generating...", file=sys.stderr)
             
-            # Run vector generation script
-            generate_script = project_root / "src" / "generate_vectors.py"
+            # Run vector generation script via CLI
+            generate_script = project_root / "claude_watch_cli.py"
             result = subprocess.run([
-                sys.executable, str(generate_script), str(config_path)
+                sys.executable, str(generate_script), "generate-vectors", "--config", str(config_path)
             ], capture_output=True, text=True, cwd=project_root)
             
             if result.returncode != 0:

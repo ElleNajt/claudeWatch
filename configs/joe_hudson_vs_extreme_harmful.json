@@ -1,0 +1,13 @@
+{
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/extreme_harmful_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_strategy": "logistic_regression",
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "Joe Hudson style authentic coaching detected!",
+  "bad_alert_message": "Extreme harmful coaching detected!",
+  "good_behavior_label": "JOE_HUDSON",
+  "bad_behavior_label": "EXTREME_HARMFUL"
+}

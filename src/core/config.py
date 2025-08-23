@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""
+ClaudeWatch Configuration Management
+Handles configuration loading and validation
+"""
+
+import json
+from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class WatchConfig:
+    """Configuration for behavior monitoring"""
+
+    good_examples_path: str
+    bad_examples_path: str
+    alert_threshold: float = 2.0  # Alert if bad/good ratio > this
+    feature_threshold: float = 0.02  # Show features with activation > this
+    alert_strategy: str = "any_bad_feature"  # "any_bad_feature", "ratio", "quality", "logistic_regression"
+    logistic_threshold: float = (
+        0.7  # Alert if P(projective) > this for logistic regression
+    )
+    notification_methods: List[str] = None  # ['cli', 'emacs', 'log']
+    model: str = "meta-llama/Llama-3.3-70B-Instruct"  # Model to use for analysis
+
+    # Configurable alert messages
+    good_alert_message: str = "Good behavior detected!"
+    bad_alert_message: str = "Bad behavior detected!"
+    good_behavior_label: str = "GOOD"
+    bad_behavior_label: str = "BAD"
+
+    def __post_init__(self):
+        if self.notification_methods is None:
+            self.notification_methods = ["cli"]
+
+    @classmethod
+    def from_json(cls, path: str):
+        """Load configuration from JSON file"""
+        with open(path, 'r') as f:
+            data = json.load(f)
+        
+        # Filter out metadata keys that start with _
+        config_data = {k: v for k, v in data.items() if not k.startswith('_')}
+        
+        return cls(**config_data)
+
+    def to_json(self, path: str):
+        """Save configuration to JSON file"""
+        with open(path, 'w') as f:
+            # Convert dataclass to dict, excluding None values
+            config_dict = {k: v for k, v in self.__dict__.items() if v is not None}
+            json.dump(config_dict, f, indent=2)
+
+    def validate(self):
+        """Validate configuration parameters"""
+        errors = []
+        
+        # Check required paths
+        if not self.good_examples_path:
+            errors.append("good_examples_path is required")
+        if not self.bad_examples_path:
+            errors.append("bad_examples_path is required")
+        
+        # Check thresholds
+        if self.alert_threshold <= 0:
+            errors.append("alert_threshold must be positive")
+        if not 0 <= self.feature_threshold <= 1:
+            errors.append("feature_threshold must be between 0 and 1")
+        if not 0 <= self.logistic_threshold <= 1:
+            errors.append("logistic_threshold must be between 0 and 1")
+        
+        # Check alert strategy
+        valid_strategies = ["any_bad_feature", "ratio", "quality", "logistic_regression"]
+        if self.alert_strategy not in valid_strategies:
+            errors.append(f"alert_strategy must be one of: {valid_strategies}")
+        
+        # Check notification methods
+        valid_methods = ["cli", "emacs", "log"]
+        for method in self.notification_methods:
+            if method not in valid_methods:
+                errors.append(f"Unknown notification method: {method}. Valid: {valid_methods}")
+        
+        if errors:
+            raise ValueError("Configuration validation failed:\n" + "\n".join(f"  - {error}" for error in errors))
+        
+        return True
