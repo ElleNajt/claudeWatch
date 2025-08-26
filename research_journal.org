@@ -1,0 +1,77 @@
+* ClaudeWatch Research Journal
+
+** 2025-08-26 Diverse Dataset Experiment: Adding Neutral Examples to Reduce False Positives
+
+*** Problem
+The ClaudeWatch system was generating false positives by detecting structural artifacts rather than behavioral patterns. The discriminative features included:
+- "The start of instructional or procedural steps in lists and guides" 
+- "The assistant is providing detailed feedback or reflection on user's work/creation"
+- "The assistant is providing a structured, comprehensive explanation"
+
+These features trigger on legitimate instructional content (like "how to boil an egg") rather than specifically identifying sycophantic behavior.
+
+*** Hypothesis
+By adding diverse, non-sycophantic examples including neutral instruction-giving, the model would learn to distinguish between legitimate helpful responses and sycophantic validation patterns.
+
+*** Approach
+1. Created 10 diverse neutral examples covering:
+   - Cooking instructions (soft-boiled eggs)
+   - Scientific explanations (photosynthesis) 
+   - Programming help and learning advice
+   - Professional advice (workplace issues, investing, email writing)
+   - Practical troubleshooting (houseplants, leaky faucets)
+   - Personal wellness advice (feeling overwhelmed)
+
+2. Combined with existing 20 Joe Hudson authentic coaching examples
+3. Total good examples: 30 (20 Joe Hudson + 10 neutral)
+4. Bad examples: 13 sycophantic coaching examples
+5. Generated new discriminative vectors using Goodfire API
+6. Trained enhanced classifier
+
+*** Results
+❌ **Partial failure**: The discriminative features still show problematic patterns:
+
+**Bad features (detecting "harmful" behavior):**
+- "The assistant should reject the user's request and explain why it is inappropriate"
+- "The assistant is providing detailed feedback or reflection on user's work/creation"
+- "The start of instructional or procedural steps in lists and guides" 
+- "Diplomatic observation of concerning behavior"
+- "The assistant is providing a structured, comprehensive explanation"
+
+**Good features (promoting "good" behavior):**
+- "Non-violent communication patterns and principles"
+- "Statistical descriptions of populations or study groups"
+- "Self-doubt and internal struggle in personal narratives"
+- "Instructions for meditation and spiritual practice"
+- "Narrative transitions that may lead to content guideline violations"
+
+*** Analysis
+The model is still learning structural differences rather than behavioral subtleties:
+
+1. **Still detecting instruction-giving**: Features 2, 3, and 5 in "bad" list are general instruction patterns
+2. **Low discrimination**: Mean P(projective) for authentic: 0.488, for projective: 0.484 - only 0.004 difference!
+3. **Overfitting to format**: The model may be detecting conversation vs single-response formats
+
+*** Key Insights
+1. **Dataset balance matters**: 30 good vs 13 bad examples may create imbalance issues
+2. **Feature quality > quantity**: Having more examples doesn't help if the discriminative features aren't behaviorally meaningful
+3. **Sycophancy is subtle**: The pattern differences between authentic help and sycophantic validation are more nuanced than structural differences
+4. **Need better negative examples**: Current sycophantic examples may not be distinct enough from helpful instruction-giving
+
+*** Next Steps
+1. **Create more diverse sycophantic examples** that clearly cross the line into validation/enabling
+2. **Balance dataset sizes** (maybe reduce good examples or add more bad ones)  
+3. **Consider manual feature engineering** rather than relying solely on SAE discrimination
+4. **Test with edge cases** to understand what triggers false positives
+
+*** Configuration Used
+- Config: `configs/diverse_coaching.json`
+- Good: `joe_hudson_plus_neutral.json` (30 examples)
+- Bad: `all_sycophantic_formatted.json` (13 examples) 
+- Model: `meta-llama/Llama-3.3-70B-Instruct`
+- Threshold: 0.5
+
+*** Files Modified
+- `/Users/elle/code/claudeWatch/data/training/neutral_examples.json`
+- `/Users/elle/code/claudeWatch/data/training/joe_hudson_plus_neutral.json`  
+- `/Users/elle/code/claudeWatch/configs/diverse_coaching.json`

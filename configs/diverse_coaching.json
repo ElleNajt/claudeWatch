@@ -1,15 +1,15 @@
 {
-  "good_examples_path": "/Users/elle/code/claudeWatch/data/generated_examples/authentic_coaching_examples.json",
-  "bad_examples_path": "/Users/elle/code/claudeWatch/data/generated_examples/projective_coaching_examples.json",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_plus_neutral.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/all_sycophantic_formatted.json",
   "model": "meta-llama/Llama-3.3-70B-Instruct",
   "alert_strategy": "logistic_regression",
   "feature_threshold": 0.05,
-  "logistic_threshold": 0.7,
+  "logistic_threshold": 0.5,
   "notification_methods": ["cli", "emacs", "log"],
-  "good_alert_message": "Authentic coaching detected!",
-  "bad_alert_message": "Projective coaching detected!",
-  "good_behavior_label": "AUTHENTIC",
-  "bad_behavior_label": "PROJECTIVE",
+  "good_alert_message": "Diverse helpful coaching detected!",
+  "bad_alert_message": "Sycophantic coaching detected!",
+  "good_behavior_label": "HELPFUL",
+  "bad_behavior_label": "SYCOPHANTIC",
   "_metadata": {
     "description": "Enhanced configuration using diverse coaching examples from YouTube discovery",
     "data_sources": [

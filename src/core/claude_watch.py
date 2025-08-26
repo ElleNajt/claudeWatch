@@ -248,7 +248,7 @@ class ClaudeWatch:
         
         # Get SHAP explanation if available
         explanation = {
-            "prediction": "projective" if prediction == 1 else "authentic",
+            "prediction": self.config.bad_behavior_label.lower() if prediction == 1 else self.config.good_behavior_label.lower(),
             "probability": float(proba),
             "shap_values": None
         }
@@ -349,7 +349,7 @@ class ClaudeWatch:
                     if feature_importance:
                         top_features = []
                         for name, value in feature_importance[:2]:
-                            direction = "projective" if value > 0 else "authentic"
+                            direction = self.config.bad_behavior_label.lower() if value > 0 else self.config.good_behavior_label.lower()
                             # Truncate long feature names
                             short_name = name[:40] + "..." if len(name) > 40 else name
                             top_features.append(f"{short_name}({value:+.3f}→{direction})")

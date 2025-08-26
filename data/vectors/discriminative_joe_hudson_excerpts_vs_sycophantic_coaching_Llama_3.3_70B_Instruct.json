@@ -1,0 +1,68 @@
+{
+  "generated": "2025-08-23T12:14:44.883086",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/sycophantic_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "ac3adee2-d8bc-49a6-958c-59f32a4f73cf",
+      "index_in_sae": 40303,
+      "label": "Statistical descriptions of populations or study groups",
+      "type": "good"
+    },
+    {
+      "uuid": "4d786b4b-1a24-4a78-b042-64581b829a1e",
+      "index_in_sae": 45702,
+      "label": "Natural text flow transitions and contextual descriptions",
+      "type": "good"
+    },
+    {
+      "uuid": "767107f0-f427-4881-9126-1b44e49d6941",
+      "index_in_sae": 32899,
+      "label": "Collaborative brainstorming and exploring possibilities in dialogue",
+      "type": "good"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "good"
+    },
+    {
+      "uuid": "efe48fa0-45ac-4bc3-9cb1-b706daa64d13",
+      "index_in_sae": 49939,
+      "label": "The assistant should reject the user's request and explain why it is inappropriate or unethical",
+      "type": "bad"
+    },
+    {
+      "uuid": "57cd7b4f-a784-4446-88e3-58ac6469f9d4",
+      "index_in_sae": 31730,
+      "label": "The assistant is providing detailed feedback or reflection on user's work/creation",
+      "type": "bad"
+    },
+    {
+      "uuid": "abe468c7-8512-4e4c-8187-bf58ebb12b1e",
+      "index_in_sae": 64106,
+      "label": "Second-person affirmations of worth and capability",
+      "type": "bad"
+    },
+    {
+      "uuid": "7bcc73ed-d9ab-44b5-9ce1-9151152e6301",
+      "index_in_sae": 56630,
+      "label": "The assistant is providing a structured, comprehensive explanation or list of related items",
+      "type": "bad"
+    },
+    {
+      "uuid": "fdfe2b97-6842-4ced-8ffe-54d0978716c3",
+      "index_in_sae": 31351,
+      "label": "Careful pacing in emotional support responses",
+      "type": "bad"
+    }
+  ]
+}

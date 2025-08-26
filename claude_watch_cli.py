@@ -11,8 +11,11 @@ from pathlib import Path
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from src.core.config import WatchConfig
-from src.core.claude_watch import ClaudeWatch
+# Only import core components when needed to avoid dependency issues
+def get_core_components():
+    from src.core.config import WatchConfig
+    from src.core.claude_watch import ClaudeWatch
+    return WatchConfig, ClaudeWatch
 
 
 def cmd_analyze(args):
