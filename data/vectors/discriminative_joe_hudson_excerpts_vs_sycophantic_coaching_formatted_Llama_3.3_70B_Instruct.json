@@ -1,0 +1,68 @@
+{
+  "generated": "2025-08-23T13:12:44.619520",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/sycophantic_coaching_formatted.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "a426a1d8-51ec-4fb2-89ee-dfd6d66b62ae",
+      "index_in_sae": 39948,
+      "label": "Expressions of feeling inadequate or fraudulent",
+      "type": "good"
+    },
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "good"
+    },
+    {
+      "uuid": "5f9bf493-abc1-4454-b5bb-cda6ef155c9d",
+      "index_in_sae": 25865,
+      "label": "Stream-of-consciousness rambling speech with filler words and self-corrections",
+      "type": "good"
+    },
+    {
+      "uuid": "efe48fa0-45ac-4bc3-9cb1-b706daa64d13",
+      "index_in_sae": 49939,
+      "label": "The assistant should reject the user's request and explain why it is inappropriate or unethical",
+      "type": "bad"
+    },
+    {
+      "uuid": "57cd7b4f-a784-4446-88e3-58ac6469f9d4",
+      "index_in_sae": 31730,
+      "label": "The assistant is providing detailed feedback or reflection on user's work/creation",
+      "type": "bad"
+    },
+    {
+      "uuid": "7bcc73ed-d9ab-44b5-9ce1-9151152e6301",
+      "index_in_sae": 56630,
+      "label": "The assistant is providing a structured, comprehensive explanation or list of related items",
+      "type": "bad"
+    },
+    {
+      "uuid": "0d03818d-4dce-404d-8dd5-e83e1805ddd4",
+      "index_in_sae": 5444,
+      "label": "The assistant should acknowledge user frustration before providing solutions",
+      "type": "bad"
+    },
+    {
+      "uuid": "45636a32-556e-4049-b595-75f49b9a050c",
+      "index_in_sae": 56123,
+      "label": "Beginning reassuring or explanatory statements with 'It is' or 'It's'",
+      "type": "bad"
+    }
+  ]
+}

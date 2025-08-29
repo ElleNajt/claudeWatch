@@ -1,0 +1,13 @@
+{
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/subtle_sycophantic_formatted.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_strategy": "logistic_regression",
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "Authentic Joe Hudson coaching detected!",
+  "bad_alert_message": "Subtle sycophantic coaching detected!",
+  "good_behavior_label": "AUTHENTIC", 
+  "bad_behavior_label": "SUBTLE_SYCOPHANTIC"
+}

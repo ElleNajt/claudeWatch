@@ -1,0 +1,68 @@
+{
+  "generated": "2025-08-26T12:31:41.098884",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/all_sycophantic_formatted.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "ac3adee2-d8bc-49a6-958c-59f32a4f73cf",
+      "index_in_sae": 40303,
+      "label": "Statistical descriptions of populations or study groups",
+      "type": "good"
+    },
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "1b7174d8-9b7a-4862-b1fd-9b6aee4eefa8",
+      "index_in_sae": 22773,
+      "label": "Instructions for meditation and spiritual practice",
+      "type": "good"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "good"
+    },
+    {
+      "uuid": "efe48fa0-45ac-4bc3-9cb1-b706daa64d13",
+      "index_in_sae": 49939,
+      "label": "The assistant should reject the user's request and explain why it is inappropriate or unethical",
+      "type": "bad"
+    },
+    {
+      "uuid": "57cd7b4f-a784-4446-88e3-58ac6469f9d4",
+      "index_in_sae": 31730,
+      "label": "The assistant is providing detailed feedback or reflection on user's work/creation",
+      "type": "bad"
+    },
+    {
+      "uuid": "492ca1ad-e2bf-4c23-b3d0-a94c2524733a",
+      "index_in_sae": 61614,
+      "label": "The start of instructional or procedural steps in lists and guides",
+      "type": "bad"
+    },
+    {
+      "uuid": "6bc62a57-14cf-43ce-b9a1-f631b2af2b29",
+      "index_in_sae": 40992,
+      "label": "Diplomatic observation of concerning behavior",
+      "type": "bad"
+    },
+    {
+      "uuid": "7bcc73ed-d9ab-44b5-9ce1-9151152e6301",
+      "index_in_sae": 56630,
+      "label": "The assistant is providing a structured, comprehensive explanation or list of related items",
+      "type": "bad"
+    }
+  ]
+}

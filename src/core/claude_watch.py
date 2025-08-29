@@ -164,12 +164,29 @@ class ClaudeWatch:
         script_dir = Path(__file__).parent.parent.parent
         return str(script_dir / f"data/vectors/discriminative_{good_name}_vs_{bad_name}_{model_name}.json")
 
-    def analyze(self, text: str) -> Dict:
-        """Analyze text for behavioral patterns"""
-        print(f"Analyzing: {text[:100]}...")
+    def analyze(self, input_data) -> Dict:
+        """Analyze text or conversation for behavioral patterns"""
+        
+        # Handle both text and conversation formats
+        if isinstance(input_data, str):
+            # Legacy text format
+            text = input_data
+            messages = [{"role": "assistant", "content": text}]
+            print(f"Analyzing: {text[:100]}...")
+        elif isinstance(input_data, list):
+            # Conversation format
+            messages = input_data
+            # Create a summary for logging
+            last_assistant = None
+            for msg in reversed(messages):
+                if msg.get('role') == 'assistant':
+                    last_assistant = msg.get('content', '')[:100]
+                    break
+            print(f"Analyzing conversation (last response): {last_assistant}...")
+        else:
+            raise ValueError("Input must be either string or list of message objects")
 
-        # Get feature activations
-        messages = [{"role": "assistant", "content": text}]
+        # Get feature activations using full conversation context
         all_activations = self.client.features.activations(
             messages=messages, model=self.config.model
         )
@@ -210,8 +227,15 @@ class ClaudeWatch:
             activated_features, good_activations, bad_activations
         )
 
+        # Get text summary for response
+        if isinstance(input_data, str):
+            analyzed_text = input_data
+        else:
+            # For conversations, use the last assistant response as summary
+            analyzed_text = last_assistant or "Conversation analysis"
+
         return {
-            "text": text,
+            "text": analyzed_text,
             "alert": alert,
             "activated_features": activated_features,
             "explanation": explanation,

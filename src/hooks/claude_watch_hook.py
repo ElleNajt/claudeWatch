@@ -168,7 +168,31 @@ def main():
     if not assistant_responses:
         sys.exit(0)
     
-    latest_response = assistant_responses[-1]['content']
+    # For subtle pattern detection, analyze conversation context
+    # Environment variable to control analysis mode
+    analysis_mode = os.environ.get('CLAUDE_WATCH_ANALYSIS_MODE', 'conversation_context')
+    
+    if analysis_mode == 'single_response':
+        # Original behavior - just latest response as text
+        analysis_input = assistant_responses[-1]['content']
+    elif analysis_mode == 'text_concat':
+        # Concatenated text approach (for backward compatibility)
+        if len(assistant_responses) >= 3:
+            recent_responses = assistant_responses[-3:]
+            analysis_input = " ".join([resp['content'] for resp in recent_responses])
+        elif len(assistant_responses) >= 2:
+            recent_responses = assistant_responses[-2:]
+            analysis_input = " ".join([resp['content'] for resp in recent_responses])
+        else:
+            analysis_input = assistant_responses[-1]['content']
+    else:  # 'conversation_context' - pass full conversation format to SAE
+        # Get recent conversation turns for better pattern detection
+        # Use last 6 messages (3 user-assistant pairs) for context
+        if len(conversation) >= 6:
+            analysis_input = conversation[-6:]
+        else:
+            # Use all available conversation if less than 6 messages
+            analysis_input = conversation
     
     # Generate vectors if needed before analysis
     if not generate_vectors_if_needed(CONFIG_PATH):
@@ -181,13 +205,28 @@ def main():
     try:
         config = WatchConfig.from_json(CONFIG_PATH)
         watch = ClaudeWatch(config)
-        result = watch.analyze(latest_response)
+        result = watch.analyze(analysis_input)
+        
+        # For logging, get a readable summary of what was analyzed
+        if isinstance(analysis_input, list):
+            # Conversation format - get last assistant response for logging
+            last_assistant_response = None
+            for msg in reversed(analysis_input):
+                if msg.get('role') == 'assistant':
+                    last_assistant_response = msg.get('content', '')
+                    break
+            display_response = last_assistant_response or "No assistant response found"
+        else:
+            # Text format
+            display_response = analysis_input
         
         # Log result with all details including activated features
         log_entry = {
             'timestamp': datetime.now().isoformat(),
-            'response': latest_response[:200],
-            'full_response': latest_response,  # Keep full response for analysis
+            'response': display_response[:200],
+            'full_response': display_response,  # Keep full response for analysis
+            'analysis_mode': analysis_mode,
+            'conversation_length': len(conversation),
             **result
         }
         
@@ -199,7 +238,7 @@ def main():
             f.write(json.dumps(serializable_log_entry) + '\n')
         
         # Send notifications using the integrated notification system
-        watch.send_notification(result, latest_response)
+        watch.send_notification(result, display_response)
         
         # Exit with code 1 if there's an alert to show stderr in Claude Code CLI
         if result.get('alert', False):

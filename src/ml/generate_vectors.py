@@ -99,10 +99,12 @@ def main():
     
     # Generate discriminative features using Goodfire
     # contrast() returns a tuple: (features_toward_dataset1, features_toward_dataset2)
+    # Use top_k=15 to get more features for better behavioral discrimination
     good_features, bad_features = client.features.contrast(
         dataset_1=good_examples,
         dataset_2=bad_examples,
         model=model,
+        top_k=15,
     )
     
     print(f"Generated {len(good_features)} good and {len(bad_features)} bad features")
@@ -158,7 +160,7 @@ def main():
     
     print(f"\n✅ Cached vectors to {cache_path}")
     print(f"✅ Ready to use with ClaudeWatch!")
-    print(f"\nTo test: python src/claude_watch.py {config_path} \"test message\"")
+    print(f"\nTo test: python claude_watch_cli.py analyze {config_path} \"test message\"")
 
 if __name__ == "__main__":
     main()

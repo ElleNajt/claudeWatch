@@ -75,3 +75,7 @@ The model is still learning structural differences rather than behavioral subtle
 - `/Users/elle/code/claudeWatch/data/training/neutral_examples.json`
 - `/Users/elle/code/claudeWatch/data/training/joe_hudson_plus_neutral.json`  
 - `/Users/elle/code/claudeWatch/configs/diverse_coaching.json`
+
+*** Git Commit
+Hash: 0744b1b
+Message: "Add diverse neutral examples to reduce false positives"

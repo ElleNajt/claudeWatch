@@ -9,7 +9,8 @@ from pathlib import Path
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
-from claude_watch import ClaudeWatch, WatchConfig
+from core.claude_watch import ClaudeWatch
+from core.config import WatchConfig
 
 def demo_explanation(text: str, label: str):
     """Demo SHAP explanation for a text"""

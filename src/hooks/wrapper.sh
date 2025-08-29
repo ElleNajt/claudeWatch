@@ -8,6 +8,9 @@ PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 # Activate ClaudeWatch virtual environment 
 source "$PROJECT_ROOT/venv/bin/activate"
 
+# Set analysis mode for better sycophancy detection
+export CLAUDE_WATCH_ANALYSIS_MODE="conversation_context"
+
 # Set config path if not already set
 if [ -z "$CLAUDE_WATCH_CONFIG" ]; then
     # Check for .claudewatch file in current directory first
@@ -15,7 +18,7 @@ if [ -z "$CLAUDE_WATCH_CONFIG" ]; then
         export CLAUDE_WATCH_CONFIG="$(cat .claudewatch)"
     else
         # Default config
-        export CLAUDE_WATCH_CONFIG="$PROJECT_ROOT/configs/joe_hudson_vs_sycophantic.json"
+        export CLAUDE_WATCH_CONFIG="$PROJECT_ROOT/configs/joe_hudson_vs_all_sycophantic.json"
     fi
 fi
 

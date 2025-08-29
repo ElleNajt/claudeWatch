@@ -1,0 +1,68 @@
+{
+  "generated": "2025-08-23T12:50:24.078769",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/subtle_sycophantic_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "1c64cea9-94ad-4dcf-b18e-d66d1e4256f8",
+      "index_in_sae": 41637,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "c4fe0a74-2c98-4642-9bb8-fdf10593a000",
+      "index_in_sae": 22058,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "a426a1d8-51ec-4fb2-89ee-dfd6d66b62ae",
+      "index_in_sae": 39948,
+      "label": "Expressions of feeling inadequate or fraudulent",
+      "type": "good"
+    },
+    {
+      "uuid": "2a4b9355-a871-41fa-89ed-0b72efed9402",
+      "index_in_sae": 13884,
+      "label": "Start of a new conversation segment in chat format",
+      "type": "good"
+    },
+    {
+      "uuid": "57cd7b4f-a784-4446-88e3-58ac6469f9d4",
+      "index_in_sae": 31730,
+      "label": "The assistant is providing detailed feedback or reflection on user's work/creation",
+      "type": "bad"
+    },
+    {
+      "uuid": "dfc5847a-2a0e-42b7-b08c-23461cb4ad5b",
+      "index_in_sae": 25905,
+      "label": "The assistant should provide balanced, measured explanations with appropriate caveats",
+      "type": "bad"
+    },
+    {
+      "uuid": "3ab647fe-e282-4ee6-bf4f-5a5a5fce43c7",
+      "index_in_sae": 56054,
+      "label": "Conditional relationships and dependencies between concepts",
+      "type": "bad"
+    },
+    {
+      "uuid": "5ca15c8f-d7fa-4c7c-a29d-bfdebbe4e0e6",
+      "index_in_sae": 51881,
+      "label": "Discussions about maintaining or changing friendship dynamics",
+      "type": "bad"
+    },
+    {
+      "uuid": "6f0aa9fc-6116-4737-8892-7a3b809dea9a",
+      "index_in_sae": 45753,
+      "label": "feature_45753",
+      "type": "bad"
+    }
+  ]
+}

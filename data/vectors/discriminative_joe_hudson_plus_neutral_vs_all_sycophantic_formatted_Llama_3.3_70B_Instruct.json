@@ -1,0 +1,188 @@
+{
+  "generated": "2025-08-26T18:10:50.988261",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_plus_neutral.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/all_sycophantic_formatted.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "ac3adee2-d8bc-49a6-958c-59f32a4f73cf",
+      "index_in_sae": 40303,
+      "label": "Statistical descriptions of populations or study groups",
+      "type": "good"
+    },
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "1b7174d8-9b7a-4862-b1fd-9b6aee4eefa8",
+      "index_in_sae": 22773,
+      "label": "Instructions for meditation and spiritual practice",
+      "type": "good"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "good"
+    },
+    {
+      "uuid": "afcf7931-af4a-47ec-bbdb-2c1a7fc69db4",
+      "index_in_sae": 11078,
+      "label": "The assistant should respond with therapeutic acknowledgment and follow-up questions",
+      "type": "good"
+    },
+    {
+      "uuid": "767107f0-f427-4881-9126-1b44e49d6941",
+      "index_in_sae": 32899,
+      "label": "Collaborative brainstorming and exploring possibilities in dialogue",
+      "type": "good"
+    },
+    {
+      "uuid": "fa029e6f-de6b-4248-9263-141b85f1c48d",
+      "index_in_sae": 3334,
+      "label": "Non-dualistic philosophical concepts about the unity of self and reality",
+      "type": "good"
+    },
+    {
+      "uuid": "1e84866e-08e3-42ce-8993-9ee696c46b3f",
+      "index_in_sae": 12226,
+      "label": "Cross-lingual grammatical connectors and transition words",
+      "type": "good"
+    },
+    {
+      "uuid": "cb87b241-c3ce-45ce-b5a9-64ee6cd929c6",
+      "index_in_sae": 16623,
+      "label": "Concepts of non-dualism and transcending ego-based perception",
+      "type": "good"
+    },
+    {
+      "uuid": "4d786b4b-1a24-4a78-b042-64581b829a1e",
+      "index_in_sae": 45702,
+      "label": "Natural text flow transitions and contextual descriptions",
+      "type": "good"
+    },
+    {
+      "uuid": "954a1e17-3ed0-4c84-9024-bd50f3f75df1",
+      "index_in_sae": 64316,
+      "label": "Complex explanatory language patterns and transitions between clauses",
+      "type": "good"
+    },
+    {
+      "uuid": "861ee999-cf10-4654-95c6-b1e355817d9f",
+      "index_in_sae": 51059,
+      "label": "Conjunctions and connecting punctuation in explanatory text across languages",
+      "type": "good"
+    },
+    {
+      "uuid": "9fd025f1-3b79-485f-bbfe-1097ffccf75b",
+      "index_in_sae": 53189,
+      "label": "Punctuation marking natural speech patterns in transcribed conversations",
+      "type": "good"
+    },
+    {
+      "uuid": "a426a1d8-51ec-4fb2-89ee-dfd6d66b62ae",
+      "index_in_sae": 39948,
+      "label": "Expressions of feeling inadequate or fraudulent",
+      "type": "good"
+    },
+    {
+      "uuid": "efe48fa0-45ac-4bc3-9cb1-b706daa64d13",
+      "index_in_sae": 49939,
+      "label": "The assistant should reject the user's request and explain why it is inappropriate or unethical",
+      "type": "bad"
+    },
+    {
+      "uuid": "57cd7b4f-a784-4446-88e3-58ac6469f9d4",
+      "index_in_sae": 31730,
+      "label": "The assistant is providing detailed feedback or reflection on user's work/creation",
+      "type": "bad"
+    },
+    {
+      "uuid": "492ca1ad-e2bf-4c23-b3d0-a94c2524733a",
+      "index_in_sae": 61614,
+      "label": "The start of instructional or procedural steps in lists and guides",
+      "type": "bad"
+    },
+    {
+      "uuid": "6bc62a57-14cf-43ce-b9a1-f631b2af2b29",
+      "index_in_sae": 40992,
+      "label": "Diplomatic observation of concerning behavior",
+      "type": "bad"
+    },
+    {
+      "uuid": "7bcc73ed-d9ab-44b5-9ce1-9151152e6301",
+      "index_in_sae": 56630,
+      "label": "The assistant is providing a structured, comprehensive explanation or list of related items",
+      "type": "bad"
+    },
+    {
+      "uuid": "029463b7-b791-44a6-ad1c-34d4e23e1f06",
+      "index_in_sae": 18890,
+      "label": "Causal explanation patterns in text",
+      "type": "bad"
+    },
+    {
+      "uuid": "3ab647fe-e282-4ee6-bf4f-5a5a5fce43c7",
+      "index_in_sae": 56054,
+      "label": "Conditional relationships and dependencies between concepts",
+      "type": "bad"
+    },
+    {
+      "uuid": "45636a32-556e-4049-b595-75f49b9a050c",
+      "index_in_sae": 56123,
+      "label": "Beginning reassuring or explanatory statements with 'It is' or 'It's'",
+      "type": "bad"
+    },
+    {
+      "uuid": "fdfe2b97-6842-4ced-8ffe-54d0978716c3",
+      "index_in_sae": 31351,
+      "label": "Careful pacing in emotional support responses",
+      "type": "bad"
+    },
+    {
+      "uuid": "5302e636-402b-4ea9-afd1-e9b1105b570d",
+      "index_in_sae": 48670,
+      "label": "The assistant is providing a list of options",
+      "type": "bad"
+    },
+    {
+      "uuid": "217f70b7-faa2-46c2-948c-be5102ff5b1e",
+      "index_in_sae": 55982,
+      "label": "Narrative transitions and connective phrases in explanatory text",
+      "type": "bad"
+    },
+    {
+      "uuid": "7d5aa17b-89bd-45f5-bbae-1d37b105ec38",
+      "index_in_sae": 52235,
+      "label": "The text suggests seeking professional relationship counseling or therapy",
+      "type": "bad"
+    },
+    {
+      "uuid": "28884314-b7d6-4aac-be98-42f8d21a0a79",
+      "index_in_sae": 26986,
+      "label": "Grammatical connectors and list formatting across languages",
+      "type": "bad"
+    },
+    {
+      "uuid": "97b09d48-a482-4366-aa85-a73ab2bf514d",
+      "index_in_sae": 22314,
+      "label": "Minimizing or justifying harmful actions with phrases like 'just trying to'",
+      "type": "bad"
+    },
+    {
+      "uuid": "5d43cd58-2b57-4e20-8576-520205fc91ed",
+      "index_in_sae": 586,
+      "label": "Narrative progression tokens in emotionally charged contexts",
+      "type": "bad"
+    }
+  ]
+}
