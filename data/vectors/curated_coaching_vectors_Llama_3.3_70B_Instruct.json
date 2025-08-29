@@ -1,0 +1,120 @@
+{
+  "generated": "2025-08-29T18:39:01.292125",
+  "good_examples_path": [
+    "joe_hudson_excerpts.json",
+    "expanded_diverse_instructional_examples.json"
+  ],
+  "bad_examples_path": "projective_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "cbed4926-5684-4090-a443-e2c290d5d8be",
+      "index_in_sae": 63783,
+      "label": "Active listening and empathetic presence in counseling contexts",
+      "type": "good"
+    },
+    {
+      "uuid": "6d255487-97a3-48e2-a222-5a9adc1415f2",
+      "index_in_sae": 11049,
+      "label": "Empathetic acknowledgment of emotional pain or difficulty",
+      "type": "good"
+    },
+    {
+      "uuid": "12034186-5bdf-487f-a84e-896ce5023e0f",
+      "index_in_sae": 18925,
+      "label": "The assistant should respond with moral restraint and encourage non-judgmental understanding",
+      "type": "good"
+    },
+    {
+      "uuid": "f6504ef1-896b-48e4-a1b4-c519e5272230",
+      "index_in_sae": 26203,
+      "label": "Step-by-step instructions and procedural guides",
+      "type": "good"
+    },
+    {
+      "uuid": "e145316f-ac0c-4caf-8a9f-2b2033579df2",
+      "index_in_sae": 23008,
+      "label": "Educational explanations of complex topics",
+      "type": "good"
+    },
+    {
+      "uuid": "3dd45661-ab7a-44af-95d0-802d77b81ee4",
+      "index_in_sae": 17309,
+      "label": "Curiosity and inquisitive behavior",
+      "type": "good"
+    },
+    {
+      "uuid": "6e881545-838b-4156-bbd7-3a38caa2d31c",
+      "index_in_sae": 57476,
+      "label": "Language promoting authenticity and being true to oneself",
+      "type": "good"
+    },
+    {
+      "uuid": "fbaba7fd-bab3-4337-a682-62790f8089a0",
+      "index_in_sae": 42364,
+      "label": "Questions asking for specific information or clarification",
+      "type": "good"
+    },
+    {
+      "uuid": "bce022f6-133b-4926-94c8-161985fb5d8f",
+      "index_in_sae": 1457,
+      "label": "Discussions of mindfulness and being present in the moment",
+      "type": "good"
+    },
+    {
+      "uuid": "98b1f887-2110-4a39-9692-8f817b969a09",
+      "index_in_sae": 8658,
+      "label": "Curiosity about physical sensations in body transformation scenarios",
+      "type": "good"
+    },
+    {
+      "uuid": "880cc089-19c3-40ca-9dc1-103eb3a4f5ee",
+      "index_in_sae": 49457,
+      "label": "The assistant is telling the user what they can or should do",
+      "type": "bad"
+    },
+    {
+      "uuid": "e3e49f49-c963-43ef-b1e6-a4825fc82079",
+      "index_in_sae": 38694,
+      "label": "Dismissive responses minimizing relationship concerns",
+      "type": "bad"
+    },
+    {
+      "uuid": "730b6493-8331-4d18-bdfd-142efd30cda0",
+      "index_in_sae": 13339,
+      "label": "Toxic relationship advice or passive-aggressive romantic comments",
+      "type": "bad"
+    },
+    {
+      "uuid": "a35d8ab6-4a9d-4f2e-84ba-3fd62f59c38b",
+      "index_in_sae": 7718,
+      "label": "Content explaining manipulative tactics and coercive methods",
+      "type": "bad"
+    },
+    {
+      "uuid": "ed75f102-c7ec-4cf4-a689-cdfce6b21bd0",
+      "index_in_sae": 61966,
+      "label": "Inappropriate boundary pushing or coercive behavior",
+      "type": "bad"
+    },
+    {
+      "uuid": "be1b83f4-6cef-41db-b9ff-80fbfa219a0a",
+      "index_in_sae": 43526,
+      "label": "Setting up hypothetical premises or assumptions",
+      "type": "bad"
+    },
+    {
+      "uuid": "8a1b636a-8667-47d1-82e4-021038f14cce",
+      "index_in_sae": 53956,
+      "label": "Prescriptive language specifying requirements or rules",
+      "type": "bad"
+    },
+    {
+      "uuid": "dceaa119-a116-40fd-91ae-901b8c535c95",
+      "index_in_sae": 58845,
+      "label": "Avoiding judgmental or confrontational language in sensitive contexts",
+      "type": "bad"
+    }
+  ],
+  "note": "Curated vectors from targeted Goodfire API searches"
+}

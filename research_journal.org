@@ -1,10 +1,73 @@
 * ClaudeWatch Research Journal
 
+** 2025-08-29 Critical Finding: Curated Vectors Outperform Auto-Generated Discriminative Vectors
+
+*** Problem Discovered
+The auto-generated discriminative vectors from the contrast() method were capturing linguistic artifacts rather than meaningful behavioral patterns. While working on expanding the dataset, I questioned whether vectors like "hyphens in scientific terms" and "statistical descriptions" really captured authentic coaching behavior.
+
+*** Investigation Approach
+Instead of relying solely on discriminative vectors from example contrasting, I used targeted Goodfire API searches to find specific coaching-related vectors:
+
+*Good behavior searches:*
+- "active listening and empathetic presence"
+- "empathetic acknowledgment of emotions"
+- "non-judgmental understanding"
+- "step-by-step instructions"
+- "educational explanations"
+- "encouraging curiosity"
+- "authentic communication"
+- "asking clarifying questions"
+- "present moment awareness"
+- "somatic awareness"
+
+*Bad behavior searches:*
+- "telling someone what to do"
+- "dismissive responses"
+- "toxic positivity"
+- "manipulative tactics"
+- "making assumptions"
+- "prescriptive solutions"
+- "judgmental language"
+
+*** Key Findings
+
+*Auto-generated vectors included many irrelevant patterns:*
+- "Hyphens in scientific and technical compound terms"
+- "Statistical descriptions of populations or study groups"
+- "Punctuation marking natural speech patterns"
+- "Stream-of-consciousness rambling speech with filler words"
+
+*Curated vectors are behaviorally specific:*
+- "Active listening and empathetic presence in counseling contexts"
+- "Empathetic acknowledgment of emotional pain or difficulty"
+- "The assistant is telling the user what they can or should do"
+- "Dismissive responses minimizing relationship concerns"
+- "Toxic relationship advice or passive-aggressive romantic comments"
+
+*** Implementation
+1. Created curated vector set using targeted Goodfire API searches
+2. Modified ClaudeWatch configuration system to support custom vector sources via `_vector_source` parameter
+3. Updated cache path logic to use curated vectors when specified
+4. Verified system successfully loads and uses the 10 good + 8 bad curated vectors
+
+*** Impact
+The curated approach provides vectors that target specific behavioral patterns rather than incidental linguistic correlations. This should significantly improve the accuracy of coaching behavior detection by focusing on:
+- Actual empathetic vs dismissive communication patterns
+- Authentic inquiry vs prescriptive advice-giving
+- Present-moment awareness vs assumption-making
+- Educational instruction vs manipulative tactics
+
+*** Git Commit
+TODO: Commit these changes with descriptive message
+
+*** Context
+This finding emerged while expanding the synthetic dataset and questioning the quality of auto-generated vectors. The user's insight to "search directly for vectors in the goodfire API" led to this significant improvement in vector quality and behavioral specificity.
+
 ** 2025-08-26 Diverse Dataset Experiment: Adding Neutral Examples to Reduce False Positives
 
 *** Problem
 The ClaudeWatch system was generating false positives by detecting structural artifacts rather than behavioral patterns. The discriminative features included:
-- "The start of instructional or procedural steps in lists and guides" 
+- "The start of instructional or procedural steps in lists and guides"
 - "The assistant is providing detailed feedback or reflection on user's work/creation"
 - "The assistant is providing a structured, comprehensive explanation"
 
@@ -16,7 +79,7 @@ By adding diverse, non-sycophantic examples including neutral instruction-giving
 *** Approach
 1. Created 10 diverse neutral examples covering:
    - Cooking instructions (soft-boiled eggs)
-   - Scientific explanations (photosynthesis) 
+   - Scientific explanations (photosynthesis)
    - Programming help and learning advice
    - Professional advice (workplace issues, investing, email writing)
    - Practical troubleshooting (houseplants, leaky faucets)
@@ -34,7 +97,7 @@ By adding diverse, non-sycophantic examples including neutral instruction-giving
 **Bad features (detecting "harmful" behavior):**
 - "The assistant should reject the user's request and explain why it is inappropriate"
 - "The assistant is providing detailed feedback or reflection on user's work/creation"
-- "The start of instructional or procedural steps in lists and guides" 
+- "The start of instructional or procedural steps in lists and guides"
 - "Diplomatic observation of concerning behavior"
 - "The assistant is providing a structured, comprehensive explanation"
 
@@ -60,20 +123,20 @@ The model is still learning structural differences rather than behavioral subtle
 
 *** Next Steps
 1. **Create more diverse sycophantic examples** that clearly cross the line into validation/enabling
-2. **Balance dataset sizes** (maybe reduce good examples or add more bad ones)  
+2. **Balance dataset sizes** (maybe reduce good examples or add more bad ones)
 3. **Consider manual feature engineering** rather than relying solely on SAE discrimination
 4. **Test with edge cases** to understand what triggers false positives
 
 *** Configuration Used
 - Config: `configs/diverse_coaching.json`
 - Good: `joe_hudson_plus_neutral.json` (30 examples)
-- Bad: `all_sycophantic_formatted.json` (13 examples) 
+- Bad: `all_sycophantic_formatted.json` (13 examples)
 - Model: `meta-llama/Llama-3.3-70B-Instruct`
 - Threshold: 0.5
 
 *** Files Modified
 - `/Users/elle/code/claudeWatch/data/training/neutral_examples.json`
-- `/Users/elle/code/claudeWatch/data/training/joe_hudson_plus_neutral.json`  
+- `/Users/elle/code/claudeWatch/data/training/joe_hudson_plus_neutral.json`
 - `/Users/elle/code/claudeWatch/configs/diverse_coaching.json`
 
 *** Git Commit

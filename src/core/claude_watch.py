@@ -110,7 +110,12 @@ class ClaudeWatch:
             SHAP_AVAILABLE = False
 
         # Build classifier path
-        good_name = Path(self.config.good_examples_path).stem
+        if isinstance(self.config.good_examples_path, list):
+            # Create name from multiple files
+            good_names = [Path(p).stem for p in self.config.good_examples_path]
+            good_name = "_plus_".join(good_names)
+        else:
+            good_name = Path(self.config.good_examples_path).stem
         bad_name = Path(self.config.bad_examples_path).stem
         model_name = self.config.model.split("/")[-1].replace("-", "_")
         script_dir = Path(__file__).parent.parent.parent
@@ -158,7 +163,18 @@ class ClaudeWatch:
 
     def _get_cache_path(self) -> str:
         """Get path to cached vectors"""
-        good_name = Path(self.config.good_examples_path).stem
+        # Check if config specifies a custom vector source
+        if hasattr(self.config, '_vector_source') and self.config._vector_source:
+            script_dir = Path(__file__).parent.parent.parent
+            return str(script_dir / f"data/vectors/{self.config._vector_source}")
+        
+        # Default behavior for auto-generated vectors
+        if isinstance(self.config.good_examples_path, list):
+            # Create name from multiple files
+            good_names = [Path(p).stem for p in self.config.good_examples_path]
+            good_name = "_plus_".join(good_names)
+        else:
+            good_name = Path(self.config.good_examples_path).stem
         bad_name = Path(self.config.bad_examples_path).stem
         model_name = self.config.model.split("/")[-1].replace("-", "_")
         script_dir = Path(__file__).parent.parent.parent
@@ -374,9 +390,8 @@ class ClaudeWatch:
                         top_features = []
                         for name, value in feature_importance[:2]:
                             direction = self.config.bad_behavior_label.lower() if value > 0 else self.config.good_behavior_label.lower()
-                            # Truncate long feature names
-                            short_name = name[:40] + "..." if len(name) > 40 else name
-                            top_features.append(f"{short_name}({value:+.3f}→{direction})")
+                            # Show full feature names without truncation
+                            top_features.append(f"{name}({value:+.3f}→{direction})")
                         
                         message += f" | Why: {', '.join(top_features)}"
             

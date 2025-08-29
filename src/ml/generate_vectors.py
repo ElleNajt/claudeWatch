@@ -32,7 +32,22 @@ if not GOODFIRE_API_KEY:
     print("  2. Set environment variable: export GOODFIRE_API_KEY=your_api_key")
     exit(1)
 
-def load_examples(path: str):
+def load_examples(path):
+    """Load examples from single path or multiple paths"""
+    # Handle list of paths or single path
+    if isinstance(path, list):
+        all_examples = []
+        for single_path in path:
+            examples = load_single_file_examples(single_path)
+            all_examples.extend(examples)
+            print(f"Loaded {len(examples)} examples from {single_path}")
+        print(f"Total examples from all files: {len(all_examples)}")
+        return all_examples
+    else:
+        return load_single_file_examples(path)
+
+
+def load_single_file_examples(path: str):
     """Load examples from JSON file (expects conversation format)"""
     with open(path, "r") as f:
         data = json.load(f)
@@ -140,7 +155,12 @@ def main():
         })
     
     # Determine cache path with model name
-    good_name = Path(good_examples_path).stem
+    if isinstance(good_examples_path, list):
+        # Create name from multiple files
+        good_names = [Path(p).stem for p in good_examples_path]
+        good_name = "_plus_".join(good_names)
+    else:
+        good_name = Path(good_examples_path).stem
     bad_name = Path(bad_examples_path).stem
     model_name = model.split('/')[-1].replace('-', '_')
     cache_path = f"./data/vectors/discriminative_{good_name}_vs_{bad_name}_{model_name}.json"

@@ -1,0 +1,188 @@
+{
+  "generated": "2025-08-29T17:21:26.160101",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/diverse_instructional_examples.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/all_sycophantic_formatted.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "5d43cd58-2b57-4e20-8576-520205fc91ed",
+      "index_in_sae": 586,
+      "label": "Narrative progression tokens in emotionally charged contexts",
+      "type": "good"
+    },
+    {
+      "uuid": "9004b31e-cb6f-4490-8255-2c738ff88373",
+      "index_in_sae": 41644,
+      "label": "Linguistic patterns that connect clauses in explanatory text",
+      "type": "good"
+    },
+    {
+      "uuid": "f9c8eb2f-e361-4473-a55e-a2e7bb5bcfa4",
+      "index_in_sae": 44412,
+      "label": "Discussion of hierarchical relationships and connections between concepts",
+      "type": "good"
+    },
+    {
+      "uuid": "cdea4be9-0375-45a1-aec5-30075b107771",
+      "index_in_sae": 57227,
+      "label": "The assistant is providing a list of recommendations or instructions",
+      "type": "good"
+    },
+    {
+      "uuid": "71c7341d-605f-438a-961b-f7ebda12d4e3",
+      "index_in_sae": 26256,
+      "label": "System organization and structural elements",
+      "type": "good"
+    },
+    {
+      "uuid": "c9ded6c1-e50f-4789-b145-f76ad3a2dd78",
+      "index_in_sae": 28201,
+      "label": "Technical and professional terminology describing systems, processes and capabilities",
+      "type": "good"
+    },
+    {
+      "uuid": "34a0a43e-3782-48c1-b3cd-410cf25cb3b7",
+      "index_in_sae": 24054,
+      "label": "Formal language patterns for requesting salary increases",
+      "type": "good"
+    },
+    {
+      "uuid": "f9d92b41-dd75-47c3-8161-001765f2fd13",
+      "index_in_sae": 11296,
+      "label": "The assistant is converting text into structured lists or bullet points",
+      "type": "good"
+    },
+    {
+      "uuid": "c391192b-c0f9-43d3-b0ed-0e65f6f2d7f8",
+      "index_in_sae": 62057,
+      "label": "The assistant is providing structured, well-formatted explanations with clear breaks between ideas",
+      "type": "good"
+    },
+    {
+      "uuid": "719935c6-85f8-4a31-8122-c448d3f80500",
+      "index_in_sae": 61902,
+      "label": "Structured step-by-step planning and methodology descriptions",
+      "type": "good"
+    },
+    {
+      "uuid": "cbce392c-7dbe-4483-a9eb-771fcfc6352d",
+      "index_in_sae": 39474,
+      "label": "Instructions for improving presentation and public speaking skills",
+      "type": "good"
+    },
+    {
+      "uuid": "377a51b0-f2c8-4409-a37b-047f307c104f",
+      "index_in_sae": 4914,
+      "label": "Linguistic markers of connection and progression in intimate contexts",
+      "type": "good"
+    },
+    {
+      "uuid": "5a7224b8-90b6-4a7f-9d96-040edbe5019c",
+      "index_in_sae": 49890,
+      "label": "Transition words in procedural sequences",
+      "type": "good"
+    },
+    {
+      "uuid": "d44b60ed-db12-43dc-ac45-4fd539f29f66",
+      "index_in_sae": 2063,
+      "label": "Grammatical connectors used in detailed descriptions and explanations",
+      "type": "good"
+    },
+    {
+      "uuid": "5fff8303-b0ba-4358-a7d5-a2655dbe295b",
+      "index_in_sae": 63396,
+      "label": "Descriptions establishing character competence and professional capability",
+      "type": "good"
+    },
+    {
+      "uuid": "efe48fa0-45ac-4bc3-9cb1-b706daa64d13",
+      "index_in_sae": 49939,
+      "label": "The assistant should reject the user's request and explain why it is inappropriate or unethical",
+      "type": "bad"
+    },
+    {
+      "uuid": "57cd7b4f-a784-4446-88e3-58ac6469f9d4",
+      "index_in_sae": 31730,
+      "label": "The assistant is providing detailed feedback or reflection on user's work/creation",
+      "type": "bad"
+    },
+    {
+      "uuid": "fdfe2b97-6842-4ced-8ffe-54d0978716c3",
+      "index_in_sae": 31351,
+      "label": "Careful pacing in emotional support responses",
+      "type": "bad"
+    },
+    {
+      "uuid": "6bc62a57-14cf-43ce-b9a1-f631b2af2b29",
+      "index_in_sae": 40992,
+      "label": "Diplomatic observation of concerning behavior",
+      "type": "bad"
+    },
+    {
+      "uuid": "45636a32-556e-4049-b595-75f49b9a050c",
+      "index_in_sae": 56123,
+      "label": "Beginning reassuring or explanatory statements with 'It is' or 'It's'",
+      "type": "bad"
+    },
+    {
+      "uuid": "217f70b7-faa2-46c2-948c-be5102ff5b1e",
+      "index_in_sae": 55982,
+      "label": "Narrative transitions and connective phrases in explanatory text",
+      "type": "bad"
+    },
+    {
+      "uuid": "cb444f4d-4d04-4e65-bbb7-3a3481085f35",
+      "index_in_sae": 5335,
+      "label": "Technical setup and configuration states in experimental procedures",
+      "type": "bad"
+    },
+    {
+      "uuid": "05eb2be0-3498-4ea7-ae5e-4ae7a1a1b836",
+      "index_in_sae": 45328,
+      "label": "Empathetic validation of difficult emotions",
+      "type": "bad"
+    },
+    {
+      "uuid": "a6efc04a-7fb4-4754-992a-68e932c93f51",
+      "index_in_sae": 26688,
+      "label": "Narrative flow in emotional personal stories",
+      "type": "bad"
+    },
+    {
+      "uuid": "029463b7-b791-44a6-ad1c-34d4e23e1f06",
+      "index_in_sae": 18890,
+      "label": "Causal explanation patterns in text",
+      "type": "bad"
+    },
+    {
+      "uuid": "7d5aa17b-89bd-45f5-bbae-1d37b105ec38",
+      "index_in_sae": 52235,
+      "label": "The text suggests seeking professional relationship counseling or therapy",
+      "type": "bad"
+    },
+    {
+      "uuid": "97b09d48-a482-4366-aa85-a73ab2bf514d",
+      "index_in_sae": 22314,
+      "label": "Minimizing or justifying harmful actions with phrases like 'just trying to'",
+      "type": "bad"
+    },
+    {
+      "uuid": "7bcc73ed-d9ab-44b5-9ce1-9151152e6301",
+      "index_in_sae": 56630,
+      "label": "The assistant is providing a structured, comprehensive explanation or list of related items",
+      "type": "bad"
+    },
+    {
+      "uuid": "69d10626-94ef-4863-9f26-3561802d0964",
+      "index_in_sae": 55595,
+      "label": "The assistant should politely deflect inappropriate advances or requests",
+      "type": "bad"
+    },
+    {
+      "uuid": "a644c97f-cf88-43f6-b5ae-6c5fe3af357b",
+      "index_in_sae": 14730,
+      "label": "Phrases expressing admiration for maturity and wisdom",
+      "type": "bad"
+    }
+  ]
+}

@@ -231,6 +231,41 @@ def validate_conversation_format(conversation: List[Dict]) -> bool:
     return True
 
 
+def load_multiple_example_files(file_paths: Union[str, List[str]]) -> List[Dict]:
+    """
+    Load examples from multiple files and merge them
+    
+    Args:
+        file_paths: Single path string or list of path strings
+        
+    Returns:
+        Merged list of examples
+    """
+    if isinstance(file_paths, str):
+        # Single file path
+        return load_conversation_data(file_paths)
+    
+    # Multiple file paths
+    datasets = []
+    for path in file_paths:
+        try:
+            data = load_conversation_data(path)
+            datasets.append(data)
+            print(f"Loaded {len(data)} examples from {path}")
+        except FileNotFoundError:
+            print(f"Warning: File not found: {path}")
+        except Exception as e:
+            print(f"Warning: Error loading {path}: {e}")
+    
+    if not datasets:
+        raise ValueError("No valid data files found")
+    
+    # Merge all datasets
+    merged = merge_conversation_datasets(*datasets)
+    print(f"Total merged examples: {len(merged)}")
+    return merged
+
+
 def merge_conversation_datasets(*datasets: List[Dict]) -> List[Dict]:
     """
     Merge multiple conversation datasets, removing duplicates

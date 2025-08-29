@@ -1,0 +1,191 @@
+{
+  "generated": "2025-08-29T18:31:29.921963",
+  "good_examples_path": [
+    "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+    "/Users/elle/code/claudeWatch/data/training/expanded_diverse_instructional_examples.json"
+  ],
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/projective_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "46ace99b-9436-4208-8112-f2e8bc66f60a",
+      "index_in_sae": 63543,
+      "label": "Elaborative and connective language patterns in explanations",
+      "type": "good"
+    },
+    {
+      "uuid": "4d786b4b-1a24-4a78-b042-64581b829a1e",
+      "index_in_sae": 45702,
+      "label": "Natural text flow transitions and contextual descriptions",
+      "type": "good"
+    },
+    {
+      "uuid": "ea548b3a-1f03-4587-8398-fb9d0ffe64b7",
+      "index_in_sae": 52330,
+      "label": "Discourse markers that connect logical steps in explanations",
+      "type": "good"
+    },
+    {
+      "uuid": "ac3adee2-d8bc-49a6-958c-59f32a4f73cf",
+      "index_in_sae": 40303,
+      "label": "Statistical descriptions of populations or study groups",
+      "type": "good"
+    },
+    {
+      "uuid": "954a1e17-3ed0-4c84-9024-bd50f3f75df1",
+      "index_in_sae": 64316,
+      "label": "Complex explanatory language patterns and transitions between clauses",
+      "type": "good"
+    },
+    {
+      "uuid": "5f9bf493-abc1-4454-b5bb-cda6ef155c9d",
+      "index_in_sae": 25865,
+      "label": "Stream-of-consciousness rambling speech with filler words and self-corrections",
+      "type": "good"
+    },
+    {
+      "uuid": "9fd025f1-3b79-485f-bbfe-1097ffccf75b",
+      "index_in_sae": 53189,
+      "label": "Punctuation marking natural speech patterns in transcribed conversations",
+      "type": "good"
+    },
+    {
+      "uuid": "7616ef36-5f04-4fb3-824b-fc72901cfc2e",
+      "index_in_sae": 54534,
+      "label": "First-person pronouns in explanatory discourse",
+      "type": "good"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "good"
+    },
+    {
+      "uuid": "767107f0-f427-4881-9126-1b44e49d6941",
+      "index_in_sae": 32899,
+      "label": "Collaborative brainstorming and exploring possibilities in dialogue",
+      "type": "good"
+    },
+    {
+      "uuid": "1b7174d8-9b7a-4862-b1fd-9b6aee4eefa8",
+      "index_in_sae": 22773,
+      "label": "Instructions for meditation and spiritual practice",
+      "type": "good"
+    },
+    {
+      "uuid": "e7c95994-3bce-4a07-97a4-0c839d2b8e49",
+      "index_in_sae": 22518,
+      "label": "Speech disfluencies and word repetitions in natural dialogue",
+      "type": "good"
+    },
+    {
+      "uuid": "d7653b23-bc06-4c24-b2d0-2c6b93a5dbf2",
+      "index_in_sae": 37324,
+      "label": "Explanatory statements using forms of 'to be'",
+      "type": "good"
+    },
+    {
+      "uuid": "a350151c-14e4-4750-b721-9ca0754e2a86",
+      "index_in_sae": 46272,
+      "label": "Narrative flow markers in dialogue (pronouns and conjunctions that establish story sequence)",
+      "type": "good"
+    },
+    {
+      "uuid": "fdfe2b97-6842-4ced-8ffe-54d0978716c3",
+      "index_in_sae": 31351,
+      "label": "Careful pacing in emotional support responses",
+      "type": "bad"
+    },
+    {
+      "uuid": "1758fa5c-da17-4888-bd9b-78463cf59f66",
+      "index_in_sae": 4021,
+      "label": "Discussions about causes and solutions for procrastination",
+      "type": "bad"
+    },
+    {
+      "uuid": "ef0f0bfd-dc49-4746-8822-d18dc4d6ce28",
+      "index_in_sae": 43651,
+      "label": "Psychological conditions involving self-doubt or anxiety being explained therapeutically",
+      "type": "bad"
+    },
+    {
+      "uuid": "626dba25-8df8-4c5b-9880-5e353523bb73",
+      "index_in_sae": 21478,
+      "label": "Psychological development and attachment trauma",
+      "type": "bad"
+    },
+    {
+      "uuid": "83b7caeb-7408-499e-bb4d-f4d035fcac0b",
+      "index_in_sae": 30555,
+      "label": "The assistant is transitioning into providing a structured explanation or breakdown",
+      "type": "bad"
+    },
+    {
+      "uuid": "3ab647fe-e282-4ee6-bf4f-5a5a5fce43c7",
+      "index_in_sae": 56054,
+      "label": "Conditional relationships and dependencies between concepts",
+      "type": "bad"
+    },
+    {
+      "uuid": "dde0124c-a7f1-42d9-ac8a-3e41d4193591",
+      "index_in_sae": 47491,
+      "label": "Hyphens in scientific and technical compound terms",
+      "type": "bad"
+    },
+    {
+      "uuid": "6bc62a57-14cf-43ce-b9a1-f631b2af2b29",
+      "index_in_sae": 40992,
+      "label": "Diplomatic observation of concerning behavior",
+      "type": "bad"
+    },
+    {
+      "uuid": "029463b7-b791-44a6-ad1c-34d4e23e1f06",
+      "index_in_sae": 18890,
+      "label": "Causal explanation patterns in text",
+      "type": "bad"
+    },
+    {
+      "uuid": "1c64cea9-94ad-4dcf-b18e-d66d1e4256f8",
+      "index_in_sae": 41637,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "c1d67208-7b10-4d1e-88ab-4a79ea19de38",
+      "index_in_sae": 56637,
+      "label": "Hyphens in chemical nomenclature and technical terms",
+      "type": "bad"
+    },
+    {
+      "uuid": "835de26f-45e2-4875-ae5f-7dba0f5c0142",
+      "index_in_sae": 57644,
+      "label": "The assistant should normalize and validate difficult emotions",
+      "type": "bad"
+    },
+    {
+      "uuid": "05eb2be0-3498-4ea7-ae5e-4ae7a1a1b836",
+      "index_in_sae": 45328,
+      "label": "Empathetic validation of difficult emotions",
+      "type": "bad"
+    },
+    {
+      "uuid": "926d9712-a355-4d94-b342-41a559d75fa3",
+      "index_in_sae": 52588,
+      "label": "Explanations of psychological manipulation and emotional abuse tactics",
+      "type": "bad"
+    },
+    {
+      "uuid": "5d43cd58-2b57-4e20-8576-520205fc91ed",
+      "index_in_sae": 586,
+      "label": "Narrative progression tokens in emotionally charged contexts",
+      "type": "bad"
+    }
+  ]
+}

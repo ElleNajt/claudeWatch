@@ -6,14 +6,14 @@ Handles configuration loading and validation
 
 import json
 from dataclasses import dataclass
-from typing import List
+from typing import List, Union
 
 
 @dataclass
 class WatchConfig:
     """Configuration for behavior monitoring"""
 
-    good_examples_path: str
+    good_examples_path: Union[str, List[str]]
     bad_examples_path: str
     alert_threshold: float = 2.0  # Alert if bad/good ratio > this
     feature_threshold: float = 0.02  # Show features with activation > this
@@ -29,6 +29,9 @@ class WatchConfig:
     bad_alert_message: str = "Bad behavior detected!"
     good_behavior_label: str = "GOOD"
     bad_behavior_label: str = "BAD"
+    
+    # Vector configuration
+    _vector_source: str = None  # Optional custom vector file to use instead of auto-generated
 
     def __post_init__(self):
         if self.notification_methods is None:
@@ -40,8 +43,8 @@ class WatchConfig:
         with open(path, 'r') as f:
             data = json.load(f)
         
-        # Filter out metadata keys that start with _
-        config_data = {k: v for k, v in data.items() if not k.startswith('_')}
+        # Filter out metadata keys that start with _, except vector configuration
+        config_data = {k: v for k, v in data.items() if not k.startswith('_') or k == '_vector_source'}
         
         return cls(**config_data)
 
@@ -59,6 +62,8 @@ class WatchConfig:
         # Check required paths
         if not self.good_examples_path:
             errors.append("good_examples_path is required")
+        elif isinstance(self.good_examples_path, list) and len(self.good_examples_path) == 0:
+            errors.append("good_examples_path list cannot be empty")
         if not self.bad_examples_path:
             errors.append("bad_examples_path is required")
         

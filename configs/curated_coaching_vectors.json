@@ -1,0 +1,19 @@
+{
+  "good_examples_path": [
+    "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+    "/Users/elle/code/claudeWatch/data/training/expanded_diverse_instructional_examples.json"
+  ],
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/projective_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_threshold": 2.0,
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "alert_strategy": "ratio",
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "Authentic/instructional coaching detected!",
+  "bad_alert_message": "Projective/manipulative coaching detected!",
+  "good_behavior_label": "AUTHENTIC/INSTRUCTIONAL", 
+  "bad_behavior_label": "PROJECTIVE/MANIPULATIVE",
+  "_vector_source": "curated_coaching_vectors_Llama_3.3_70B_Instruct.json",
+  "_note": "Uses hand-curated vectors from targeted Goodfire API searches rather than auto-generated discriminative vectors"
+}

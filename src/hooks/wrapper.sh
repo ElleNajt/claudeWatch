@@ -21,7 +21,14 @@ export CLAUDE_WATCH_ANALYSIS_MODE="conversation_context"
 if [ -z "$CLAUDE_WATCH_CONFIG" ]; then
     # Check for .claudewatch file in current directory first
     if [ -f ".claudewatch" ]; then
-        export CLAUDE_WATCH_CONFIG="$(cat .claudewatch)"
+        # Check if it's JSON format
+        if grep -q "config_path" .claudewatch 2>/dev/null; then
+            # Extract config_path from JSON
+            export CLAUDE_WATCH_CONFIG="$(python3 -c "import json; print(json.load(open('.claudewatch'))['config_path'])" 2>/dev/null)"
+        else
+            # Legacy format - direct path
+            export CLAUDE_WATCH_CONFIG="$(cat .claudewatch)"
+        fi
     else
         # Default config - uses 30-feature diverse coaching model
         export CLAUDE_WATCH_CONFIG="$PROJECT_ROOT/configs/diverse_coaching.json"

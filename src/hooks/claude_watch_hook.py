@@ -38,6 +38,67 @@ def make_json_serializable(obj):
         return obj
 
 
+def format_readable_log_entry(log_entry, features=None):
+    """Format log entry for human readability"""
+    readable_entry = {
+        "timestamp": log_entry["timestamp"],
+        "alert": log_entry.get("alert", False),
+        "response_preview": log_entry["response"],
+        "full_response": log_entry["full_response"],
+        "analysis": {
+            "mode": log_entry.get("analysis_mode", "unknown"),
+            "conversation_length": log_entry.get("conversation_length", 0),
+        }
+    }
+    
+    # Add human-readable activated features
+    if "activated_features" in log_entry and log_entry["activated_features"]:
+        readable_entry["activated_features"] = [
+            {
+                "type": f["type"],
+                "label": f["label"], 
+                "activation": f["activation"]
+            }
+            for f in log_entry["activated_features"]
+        ]
+    
+    # Add readable explanation if available
+    if "explanation" in log_entry:
+        explanation = log_entry["explanation"]
+        readable_explanation = {
+            "prediction": explanation.get("prediction", "unknown"),
+            "probability": explanation.get("probability", 0.0)
+        }
+        
+        # Add feature contributions with names instead of indices
+        if "shap_values" in explanation and features:
+            shap_values = explanation["shap_values"]
+            if len(shap_values) == len(features):
+                feature_contributions = []
+                for i, (shap_val, feature) in enumerate(zip(shap_values, features)):
+                    if abs(shap_val) > 0.001:  # Only show meaningful contributions
+                        feature_contributions.append({
+                            "feature": feature["label"],
+                            "contribution": shap_val,
+                            "direction": "bad" if shap_val > 0 else "good"
+                        })
+                
+                # Sort by absolute contribution
+                feature_contributions.sort(key=lambda x: abs(x["contribution"]), reverse=True)
+                readable_explanation["feature_contributions"] = feature_contributions[:10]  # Top 10
+        
+        readable_entry["explanation"] = readable_explanation
+    
+    # Add activations summary
+    if "good_activations" in log_entry:
+        readable_entry["activations_summary"] = {
+            "good_features_active": len([x for x in log_entry["good_activations"] if x > 0]),
+            "bad_features_active": len([x for x in log_entry.get("bad_activations", []) if x > 0])
+        }
+    
+    return readable_entry
+
+
 def extract_conversation(transcript_path: str) -> list:
     """Extract conversation from Claude Code JSONL transcript"""
     if not os.path.exists(transcript_path):
@@ -230,12 +291,13 @@ def main():
             **result
         }
         
-        # Make the log entry JSON-serializable
+        # Make the log entry JSON-serializable and readable
         serializable_log_entry = make_json_serializable(log_entry)
+        readable_log_entry = format_readable_log_entry(serializable_log_entry, watch.features)
         
         log_file = LOG_DIR / 'claude_watch.log'
         with open(log_file, 'a') as f:
-            f.write(json.dumps(serializable_log_entry) + '\n')
+            f.write(json.dumps(readable_log_entry, indent=2) + '\n')
         
         # Send notifications using the integrated notification system
         watch.send_notification(result, display_response)

@@ -34,14 +34,19 @@ class YouTubeCoachDiscovery:
             List of video metadata dictionaries
         """
         if search_terms:
-            search_query = f'site:youtube.com+"{coach_name}"+{search_terms}'
+            if coach_name:
+                search_query = f'site:youtube.com+"{coach_name}"+{search_terms}'
+            else:
+                # For style-based search without specific coach
+                search_query = f'site:youtube.com+{search_terms}+coaching+session'
         else:
             search_query = f'site:youtube.com+"{coach_name}"+coaching+session'
         
         print(f"🔍 Searching YouTube for: {coach_name} (terms: {search_terms or 'coaching session'})")
         
         # Create Claude prompt for MCP-powered search
-        prompt = f'''Please help me find YouTube coaching videos for {coach_name}. 
+        if coach_name:
+            prompt = f"""Please help me find YouTube coaching videos for {coach_name}. 
 
 1. Navigate to Google search: https://www.google.com/search?q={search_query}
 
@@ -72,13 +77,53 @@ class YouTubeCoachDiscovery:
   }}
 ]
 
-Please focus on finding {max_results} high-quality coaching session videos and return only the JSON data.'''
+Please focus on finding {max_results} high-quality coaching session videos and return only the JSON data."""
+        else:
+            # Style-based search without specific coach
+            prompt = f"""Please help me find YouTube videos showing {search_terms} sessions. 
 
-        # Run Claude with Playwright MCP tools
-        cmd = [
-            'claude', '-p', prompt,
-            '--allowedTools', 'mcp__playwright__browser_navigate,mcp__playwright__browser_snapshot,mcp__playwright__browser_click,mcp__playwright__browser_type',
-        ]
+1. Navigate to Google search: https://www.google.com/search?q={search_query}
+
+2. Take a snapshot of the search results page
+
+3. Extract YouTube video information from the search results, looking for:
+   - YouTube URLs (https://www.youtube.com/watch?v=...)
+   - Video titles  
+   - Video descriptions/snippets
+
+4. IMPORTANT: Only include videos that show actual 1-on-1 coaching sessions. Exclude lectures, seminars, and promotional content.
+
+5. Return the data in this JSON format:
+[
+  {{
+    "url": "https://www.youtube.com/watch?v=VIDEO_ID",
+    "title": "Video Title", 
+    "description": "Video description"
+  }}
+]
+
+Please focus on finding {max_results} genuine coaching session videos and return only the JSON data."""
+
+        # Run Claude with Playwright MCP tools (using working pattern from buddhaMindVector)
+        cmd = ['claude']
+        
+        # Add MCP config if available
+        import os
+        mcp_config = os.environ.get('CLAUDE_MCP_CONFIG')
+        if not mcp_config:
+            # Check for local config file
+            if os.path.exists('mcp_config.json'):
+                mcp_config = 'mcp_config.json'
+            elif os.path.exists('/Users/elle/code/claudeWatch/mcp_config.json'):
+                mcp_config = '/Users/elle/code/claudeWatch/mcp_config.json'
+        
+        if mcp_config:
+            cmd.extend(['--mcp-config', mcp_config])
+        
+        cmd.extend([
+            '-p', prompt,
+            '--allowedTools', 'mcp__playwright__browser_navigate,mcp__playwright__browser_snapshot,mcp__playwright__browser_click,mcp__playwright__browser_type'
+        ])
         
         try:
             print(f"🤖 Running Claude search...")

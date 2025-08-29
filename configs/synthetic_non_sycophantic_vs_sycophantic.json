@@ -1,0 +1,13 @@
+{
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/diverse_instructional_examples.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/all_sycophantic_formatted.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_strategy": "logistic_regression",
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.6,
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "Normal helpful response detected!",
+  "bad_alert_message": "Sycophantic response detected!",
+  "good_behavior_label": "HELPFUL",
+  "bad_behavior_label": "SYCOPHANTIC"
+}

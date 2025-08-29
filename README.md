@@ -25,12 +25,19 @@ Hook configuration in `.claude/settings.local.json`:
    # No setup needed - uses configs/diverse_coaching.json automatically
    ```
 
-2. **Set global config via environment**:
+2. **Use balanced synthetic dataset** (recommended for reduced false positives):
+   ```bash
+   # Uses synthetic non-sycophantic vs sycophantic examples
+   # Better at distinguishing helpful instructions from flattery
+   # configs/synthetic_non_sycophantic_vs_sycophantic.json
+   ```
+
+3. **Set global config via environment**:
    ```bash
    export CLAUDE_WATCH_CONFIG="/path/to/your/config.json"
    ```
 
-3. **Set per-directory config** (recommended):
+4. **Set per-directory config** (recommended):
    ```bash
    # Create .claudewatch file in your project directory
    echo "/path/to/your/config.json" > .claudewatch
@@ -55,6 +62,48 @@ python claude_watch_cli.py train configs/my_config.json
 2. Monitor Claude responses in real-time via hooks
 3. Classify behavior using ML with SHAP explanations
 4. Alert when confidence exceeds threshold
+
+## Setting Configuration for Specific Directories
+
+You can configure ClaudeWatch to use different models for different projects or directories:
+
+### Method 1: Directory-specific config (Recommended)
+Create a `.claudewatch` JSON file in any directory:
+
+```json
+{
+  "config_path": "/Users/elle/code/claudeWatch/configs/synthetic_non_sycophantic_vs_sycophantic.json"
+}
+```
+
+Example setup:
+```bash
+# Create config for a specific project
+cat > /path/to/project/.claudewatch << 'EOF'
+{
+  "config_path": "/Users/elle/code/claudeWatch/configs/synthetic_non_sycophantic_vs_sycophantic.json"
+}
+EOF
+
+# Example: Configure TestingBadClaude directory
+cat > ~/Documents/TestingBadClaude/.claudewatch << 'EOF'
+{
+  "config_path": "/Users/elle/code/claudeWatch/configs/synthetic_non_sycophantic_vs_sycophantic.json"
+}
+EOF
+```
+
+The hook will automatically use this configuration when Claude runs in that directory.
+
+### Method 2: Environment variable
+Set `CLAUDE_WATCH_CONFIG` before running Claude:
+
+```bash
+export CLAUDE_WATCH_CONFIG="/path/to/configs/my_config.json"
+```
+
+### Method 3: Update default in wrapper.sh
+Edit `src/hooks/wrapper.sh` to change the default configuration.
 
 ## Available Configurations
 
