@@ -46,8 +46,8 @@ if [ -z "$CLAUDE_WATCH_CONFIG" ]; then
             echo "$(date): Using config from .claudewatch legacy: $CLAUDE_WATCH_CONFIG" >> "$LOG_FILE"
         fi
     else
-        # Default config - uses 30-feature diverse coaching model
-        export CLAUDE_WATCH_CONFIG="$PROJECT_ROOT/configs/diverse_coaching.json"
+        # Default config - use claude_prompt strategy (recommended)
+        export CLAUDE_WATCH_CONFIG="$PROJECT_ROOT/configs/claude_prompt_sycophancy.json"
         echo "$(date): No .claudewatch found, using default: $CLAUDE_WATCH_CONFIG" >> "$LOG_FILE"
     fi
 else

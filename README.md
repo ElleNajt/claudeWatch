@@ -1,6 +1,10 @@
 # ClaudeWatch
 
-Epistemic status: Fun side project trying to use SAEs to detect claude code manipulating me when I use it for coaching. 
+Epistemic status: Fun side project trying to detect claude code being sycophantic me when I use it for coaching.  Also includes some experiments with using SAEs to do this, but using claude code directly works better.
+
+![ClaudeWatch in action](Screenshot%202025-08-30%20at%202.54.26%20AM.png)
+
+*ClaudeWatch detecting sycophantic behavior in real-time during a Claude Code session*
 
 ## Quick Start (Recommended: Claude Prompt Strategy)
 
@@ -22,7 +26,7 @@ The simplest and most effective approach uses Claude itself to detect unwanted b
   "alert_strategy": "claude_prompt",
   "behavior_to_detect": "emotional manipulation or guilt-tripping",
   "claude_threshold": 0.6,
-  "notification_methods": ["cli", "log"]
+  "notification_methods": ["cli", "log", "emacs"]
 }
 ```
 
@@ -70,7 +74,7 @@ The `behavior_to_detect` field allows you to describe any behavior pattern you w
 
 The system works best with specific, behavioral descriptions rather than abstract concepts. Focus on observable patterns in language and communication style.
 
-**Note:** When ClaudeWatch detects unwanted behavior, Claude Code will show a nonzero return code in the terminal. This is intentional but the error display won't go away  For a better user experience, use `"notification_methods": ["emacs"]` instead of `["cli"]` - the Emacs integration provides cleaner notifications.
+**Note:** When ClaudeWatch detects unwanted behavior, Claude Code will show a nonzero return code in the terminal. This is intentional but the error display won't go away and continues to stay above the input. For a better user experience, use `"notification_methods": ["emacs"]` instead of `["cli"]` - the Emacs integration provides cleaner notifications.
 
 ## SAE-based Strategies (Experimental)
 

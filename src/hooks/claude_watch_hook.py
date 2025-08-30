@@ -34,6 +34,8 @@ try:
     log_message("Successfully imported ClaudeWatch modules")
 except Exception as e:
     log_message(f"Failed to import ClaudeWatch modules: {e}")
+    import traceback
+    log_message(f"Full traceback: {traceback.format_exc()}")
     sys.exit(1)
 
 
@@ -211,6 +213,11 @@ def generate_vectors_if_needed(config_path: str):
         with open(config_path, 'r') as f:
             config_data = json.load(f)
         
+        # Skip vector generation for claude_prompt strategy (doesn't use vectors)
+        if config_data.get("alert_strategy") == "claude_prompt":
+            log_message("Using claude_prompt strategy, skipping vector check")
+            return True
+        
         # Handle both list and string formats for examples paths
         good_examples_path = config_data.get("good_examples_path")
         bad_examples_path = config_data.get("bad_examples_path")
@@ -264,7 +271,7 @@ def main():
     
     # Configuration  
     CONFIG_PATH = os.environ.get('CLAUDE_WATCH_CONFIG', 
-                                 str(Path(__file__).parent.parent.parent / 'configs' / 'coaching_examples.json'))
+                                 str(Path(__file__).parent.parent.parent / 'configs' / 'claude_prompt_sycophancy.json'))
     log_message(f"Config path: {CONFIG_PATH}")
     
     # Read hook event from stdin first to get cwd and transcript path
@@ -316,14 +323,19 @@ def main():
         LOG_DIR.mkdir(exist_ok=True)
     
     # Extract conversation
+    log_message(f"Extracting conversation from: {transcript_path}")
     conversation = extract_conversation(transcript_path)
+    log_message(f"Extracted {len(conversation)} messages from conversation")
     
     if len(conversation) < 2:
+        log_message("Conversation too short (< 2 messages), exiting")
         sys.exit(0)
     
     # Get latest assistant response
     assistant_responses = [msg for msg in conversation if msg['role'] == 'assistant']
+    log_message(f"Found {len(assistant_responses)} assistant responses")
     if not assistant_responses:
+        log_message("No assistant responses found, exiting")
         sys.exit(0)
     
     # For subtle pattern detection, analyze conversation context
@@ -353,17 +365,28 @@ def main():
             analysis_input = conversation
     
     # Generate vectors if needed before analysis
+    log_message(f"Checking if vectors need to be generated for config: {CONFIG_PATH}")
     if not generate_vectors_if_needed(CONFIG_PATH):
+        log_message("Vector generation check failed, exiting")
         sys.exit(0)
+    log_message("Vector generation check passed")
     
     # Set environment variable so notification system knows project directory  
     os.environ['CLAUDE_PROJECT_DIR'] = str(project_dir)
     
     # Load configuration and analyze
     try:
+        log_message(f"Loading config from: {CONFIG_PATH}")
         config = WatchConfig.from_json(CONFIG_PATH)
+        log_message(f"Config loaded successfully. Alert strategy: {config.alert_strategy}")
+        
+        log_message("Initializing ClaudeWatch...")
         watch = ClaudeWatch(config)
+        log_message("ClaudeWatch initialized successfully")
+        
+        log_message(f"Analyzing input (type: {type(analysis_input).__name__})")
         result = watch.analyze(analysis_input)
+        log_message(f"Analysis complete. Alert: {result.get('alert', False)}")
         
         # For logging, get a readable summary of what was analyzed
         if isinstance(analysis_input, list):
@@ -404,9 +427,14 @@ def main():
             sys.exit(1)
         
     except Exception as e:
+        log_message(f"Error during analysis: {e}")
+        import traceback
+        log_message(f"Full traceback: {traceback.format_exc()}")
+        
         # Log error but don't interfere with Claude
         with open(LOG_DIR / 'errors.log', 'a') as f:
             f.write(f"{datetime.now()}: {e}\n")
+            f.write(f"Traceback: {traceback.format_exc()}\n")
     
     sys.exit(0)
 
