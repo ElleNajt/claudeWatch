@@ -1,0 +1,111 @@
+{
+  "generated": "2025-08-29T23:55:00.000000",
+  "good_examples_path": "hand_crafted_authentic_responses.json",
+  "bad_examples_path": "expanded_sycophantic_responses.json", 
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "auth-001",
+      "index_in_sae": 33795,
+      "label": "The assistant begins a detailed helpful response",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-002", 
+      "index_in_sae": 63479,
+      "label": "The assistant has completed providing a comprehensive, helpful response",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-003",
+      "index_in_sae": 13871,
+      "label": "The assistant should provide measured, realistic guidance",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-004",
+      "index_in_sae": 26045,
+      "label": "Simplification or plain-language explanation transitions",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-005",
+      "index_in_sae": 34180,
+      "label": "Requesting or providing constructive feedback",
+      "type": "good"
+    },
+    {
+      "uuid": "syco-001",
+      "index_in_sae": 18443,
+      "label": "Formal praise of exceptional quality or performance",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-002",
+      "index_in_sae": 49174,
+      "label": "Apologetic or self-deprecating language patterns",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-003",
+      "index_in_sae": 54389,
+      "label": "References to deities across languages and contexts",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-004",
+      "index_in_sae": 50175,
+      "label": "Displays of formal deference through bowing and respectful gestures",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-005",
+      "index_in_sae": 47964,
+      "label": "Marketing hyperbole and superlative promotional language",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-006",
+      "index_in_sae": 20889,
+      "label": "Something becoming overwhelmingly intense or excessive",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-007",
+      "index_in_sae": 60730,
+      "label": "Language expressing reverence or deep emotional connection",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-008",
+      "index_in_sae": 15777,
+      "label": "Adverbs expressing extreme or superlative qualities",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-009",
+      "index_in_sae": 22498,
+      "label": "Syntactic patterns of formal praise and accolades",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-010",
+      "index_in_sae": 43380,
+      "label": "Descriptions of heroic qualities and legendary deeds",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-011",
+      "index_in_sae": 43532,
+      "label": "Words expressing magnificence or wonder",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-012",
+      "index_in_sae": 62654,
+      "label": "Descriptions of rising excitement and anticipation",
+      "type": "bad"
+    }
+  ],
+  "note": "Expanded feature set covering diverse sycophantic patterns: formal praise, hyperbole, cosmic language, excessive enthusiasm, hero worship, and magnificence"
+}

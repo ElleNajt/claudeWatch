@@ -20,17 +20,9 @@ Hook configuration in `.claude/settings.local.json`:
 
 **Configuration Options:**
 
-1. **Use default config** (30-feature diverse coaching model):
-   ```bash
-   # No setup needed - uses configs/diverse_coaching.json automatically
-   ```
+1. **Default config**: Uses configs/diverse_coaching.json automatically
 
-2. **Use balanced synthetic dataset** (recommended for reduced false positives):
-   ```bash
-   # Uses synthetic non-sycophantic vs sycophantic examples
-   # Better at distinguishing helpful instructions from flattery
-   # configs/synthetic_non_sycophantic_vs_sycophantic.json
-   ```
+2. **Balanced synthetic dataset**: configs/synthetic_non_sycophantic_vs_sycophantic.json
 
 3. **Set global config via environment**:
    ```bash
@@ -109,8 +101,9 @@ Edit `src/hooks/wrapper.sh` to change the default configuration.
 
 **Built-in configs:**
 
-- `configs/diverse_coaching.json` - **Default**. 30-feature model detecting sycophantic vs authentic coaching
-- `configs/joe_hudson_vs_all_sycophantic.json` - 10-feature model, Joe Hudson authentic vs sycophantic  
+- `configs/diverse_coaching.json` - Default. 30-feature model
+- `configs/joe_hudson_vs_all_sycophantic.json` - 10-feature model  
+- `configs/comprehensive_sycophancy_detection.json` - 17-feature expanded model  
 
 **Config format:**
 ```json
@@ -128,8 +121,8 @@ Edit `src/hooks/wrapper.sh` to change the default configuration.
 ```
 
 **Key settings:**
-- `logistic_threshold`: Alert when P(bad) > this value (0.3-0.7 typical range)
-- `alert_strategy`: "logistic_regression" (recommended), "any_bad_feature", or "ratio"
+- `logistic_threshold`: Alert when P(bad) > this value (0.3-0.7 range)
+- `alert_strategy`: "logistic_regression", "any_bad_feature", or "ratio"
 - `notification_methods`: ["cli"] for terminal, ["emacs"] for editor, ["log"] for file
 
 ## Architecture
@@ -171,10 +164,10 @@ Conversation format:
 - Check `GOODFIRE_API_KEY` is set correctly
 
 **No alerts appearing:**
-- Lower `logistic_threshold` to 0.3 for more sensitivity
+- Lower `logistic_threshold` to 0.3
 - Check if classifier model exists in `models/` directory
 - Run training: `python claude_watch_cli.py train configs/your_config.json`
 
 ## Research Application
 
-Built for AI safety research on behavioral pattern detection using mechanistic interpretability.
+AI safety research tool for behavioral pattern detection using sparse autoencoder features.

@@ -1,8 +1,8 @@
 # ClaudeWatch Vector Configuration Guide
 
-ClaudeWatch now supports **three different methods** for configuring behavioral detection vectors:
+ClaudeWatch supports three methods for configuring behavioral detection vectors:
 
-## 1. 🔄 Auto-Generated Vectors (Default)
+## 1. Auto-Generated Vectors (Default)
 
 Uses example datasets to automatically generate discriminative vectors via `contrast()`.
 
@@ -15,10 +15,9 @@ Uses example datasets to automatically generate discriminative vectors via `cont
 }
 ```
 
-**Pros:** Automatic, requires only example datasets  
-**Cons:** May capture linguistic artifacts rather than behavioral patterns
+Automatic, requires only example datasets. May capture linguistic artifacts rather than behavioral patterns.
 
-## 2. 📁 Custom Vector Files
+## 2. Custom Vector Files
 
 Points to pre-generated vector files using `_vector_source`.
 
@@ -32,10 +31,9 @@ Points to pre-generated vector files using `_vector_source`.
 }
 ```
 
-**Pros:** Uses hand-curated, behaviorally-specific vectors  
-**Cons:** Requires separate vector file creation step
+Uses hand-curated, behaviorally-specific vectors. Requires separate vector file creation step.
 
-## 3. 🎯 Direct Vector Specification (New!)
+## 3. Direct Vector Specification
 
 Directly specifies vector UUIDs in the configuration file.
 
@@ -68,13 +66,7 @@ Directly specifies vector UUIDs in the configuration file.
 }
 ```
 
-**Pros:** 
-- No external files needed
-- Precise control over vectors
-- Easy sharing and experimentation  
-- Perfect for A/B testing different vector combinations
-
-**Cons:** Requires knowing specific vector UUIDs
+No external files needed. Precise control over vectors. Requires knowing specific vector UUIDs.
 
 ## Vector Specification Format
 
@@ -129,4 +121,4 @@ The system validates that you provide either:
 - **Custom vector files**: Production systems with curated, tested vectors
 - **Auto-generated**: Rapid prototyping with new datasets
 
-Choose the method that best fits your workflow and requirements!
+Choose the method that fits your workflow.
