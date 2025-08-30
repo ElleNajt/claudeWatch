@@ -1,0 +1,69 @@
+{
+  "generated": "2025-08-29T23:10:00.000000",
+  "good_examples_path": "non_sycophantic_coaching_examples.json",
+  "bad_examples_path": "anthropic_sycophancy_examples.json", 
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "auth-sycophancy-001",
+      "index_in_sae": 33795,
+      "label": "The assistant begins a detailed helpful response",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-sycophancy-002", 
+      "index_in_sae": 17070,
+      "label": "References to enthusiasm as a desirable trait",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-sycophancy-003",
+      "index_in_sae": 34180,
+      "label": "Requesting or providing constructive feedback",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-sycophancy-004",
+      "index_in_sae": 21943,
+      "label": "Assistant adopting an enthusiastic casual conversational tone",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-sycophancy-005",
+      "index_in_sae": 65511,
+      "label": "Constructive suggestions for future improvement",
+      "type": "good"
+    },
+    {
+      "uuid": "syco-001",
+      "index_in_sae": 18443,
+      "label": "Formal praise of exceptional quality or performance",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-002",
+      "index_in_sae": 49174,
+      "label": "Apologetic or self-deprecating language patterns",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-003",
+      "index_in_sae": 23992,
+      "label": "Positive sentiment and enthusiasm in promotional or encouraging contexts",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-004",
+      "index_in_sae": 54389,
+      "label": "References to deities across languages and contexts",
+      "type": "bad"
+    },
+    {
+      "uuid": "syco-005",
+      "index_in_sae": 50175,
+      "label": "Displays of formal deference through bowing and respectful gestures",
+      "type": "bad"
+    }
+  ],
+  "note": "Hand-curated features specifically for detecting sycophantic vs authentic assistant behavior"
+}

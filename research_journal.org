@@ -25,7 +25,7 @@ SHAP explanations now show meaningful behavioral patterns:
 *New Config:* configs/hand_curated_behavioral.json
 *Trained Model:* models/latest_classifier_hand_curated_behavioral_features.pkl
 
-Git commit: [pending]
+Git commit: 1ffe41d
 
 ---
 

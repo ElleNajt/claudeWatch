@@ -1,5 +1,7 @@
 # ClaudeWatch
 
+Epistemic status: Fun side project trying to use SAEs to detect model misbehavior. 
+
 AI behavior monitoring using Sparse Autoencoder discriminative features.
 
 ## Setup
