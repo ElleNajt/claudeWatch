@@ -16,9 +16,12 @@ import numpy as np
 try:
     import goodfire
     from goodfire import Client
+    GOODFIRE_AVAILABLE = True
 except ImportError:
-    print("Error: Goodfire not installed. Run: pip install goodfire")
-    exit(1)
+    print("Warning: Goodfire not installed. Claude prompt strategy will still work.")
+    goodfire = None
+    Client = None
+    GOODFIRE_AVAILABLE = False
 
 try:
     from dotenv import load_dotenv
@@ -28,8 +31,16 @@ except ImportError:
     # dotenv is optional
     pass
 
-from .config import WatchConfig
-from .notifications import NotificationManager
+try:
+    from .config import WatchConfig
+    from .notifications import NotificationManager
+except ImportError:
+    # For direct execution
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent))
+    from config import WatchConfig
+    from notifications import NotificationManager
 
 
 class ClaudeWatch:
@@ -41,8 +52,25 @@ class ClaudeWatch:
         config.validate()
         
         self.config = config
+        self.notifier = NotificationManager(config.notification_methods)
+        self.features = None
+        self.classifier_model = None
+        self.shap_explainer = None
+        self.client = None
         
-        # Check for API key
+        # Skip Goodfire initialization for claude_prompt strategy
+        if config.alert_strategy == "claude_prompt":
+            print("Using claude_prompt strategy - skipping Goodfire initialization")
+            return
+        
+        # Check Goodfire availability for SAE-based strategies
+        if not GOODFIRE_AVAILABLE:
+            raise ValueError(
+                "Goodfire not available but required for SAE-based strategies. "
+                "Please run: pip install goodfire"
+            )
+        
+        # Check for API key for SAE-based strategies
         api_key = os.environ.get("GOODFIRE_API_KEY")
         if not api_key:
             raise ValueError(
@@ -52,10 +80,6 @@ class ClaudeWatch:
             )
         
         self.client = Client(api_key=api_key)
-        self.features = None
-        self.notifier = NotificationManager(config.notification_methods)
-        self.classifier_model = None
-        self.shap_explainer = None
         
         # Load vectors (cached, direct, or auto-generated) and classifier
         self._load_vectors()
@@ -264,6 +288,7 @@ class ClaudeWatch:
             text = input_data
             messages = [{"role": "assistant", "content": text}]
             print(f"Analyzing: {text[:100]}...")
+            analysis_text = text
         elif isinstance(input_data, list):
             # Conversation format
             messages = input_data
@@ -274,9 +299,30 @@ class ClaudeWatch:
                     last_assistant = msg.get('content', '')[:100]
                     break
             print(f"Analyzing conversation (last response): {last_assistant}...")
+            
+            # Extract text for claude_prompt analysis
+            analysis_text = ""
+            for msg in reversed(messages):
+                if msg.get('role') == 'assistant':
+                    analysis_text = msg.get('content', '')
+                    break
         else:
             raise ValueError("Input must be either string or list of message objects")
 
+        # For claude_prompt strategy, skip SAE analysis
+        if self.config.alert_strategy == "claude_prompt":
+            should_alert, explanation = self._claude_prompt_alert(analysis_text)
+            
+            result = {
+                "alert": should_alert,
+                "explanation": explanation,
+                "activated_features": [],
+                "analysis_text": analysis_text[:200] + "..." if len(analysis_text) > 200 else analysis_text
+            }
+            
+            return result
+
+        # SAE-based analysis for other strategies
         # Get feature activations using full conversation context
         all_activations = self.client.features.activations(
             messages=messages, model=self.config.model
@@ -319,9 +365,20 @@ class ClaudeWatch:
                     "activation": bad_activations[i]
                 })
 
+        # Get text for potential claude_prompt analysis
+        if isinstance(input_data, str):
+            analysis_text = input_data
+        else:
+            # For conversations, get the last assistant response
+            analysis_text = ""
+            for msg in reversed(messages):
+                if msg.get('role') == 'assistant':
+                    analysis_text = msg.get('content', '')
+                    break
+
         # Determine if we should alert
         alert, explanation = self._should_alert(
-            activated_features, good_activations, bad_activations
+            activated_features, good_activations, bad_activations, analysis_text
         )
 
         # Get text summary for response
@@ -341,7 +398,8 @@ class ClaudeWatch:
         }
 
     def _should_alert(self, activated_features: List[Dict], 
-                      good_activations: List[float], bad_activations: List[float]) -> tuple:
+                      good_activations: List[float], bad_activations: List[float], 
+                      analysis_text: str = "") -> tuple:
         """Determine if we should alert based on strategy"""
         
         if self.config.alert_strategy == "logistic_regression":
@@ -352,6 +410,8 @@ class ClaudeWatch:
             return self._ratio_alert(good_activations, bad_activations)
         elif self.config.alert_strategy == "quality":
             return self._quality_alert(good_activations, bad_activations)
+        elif self.config.alert_strategy == "claude_prompt":
+            return self._claude_prompt_alert(analysis_text)
         else:
             raise ValueError(f"Unknown alert strategy: {self.config.alert_strategy}")
 
@@ -452,6 +512,113 @@ class ClaudeWatch:
         
         return should_alert, explanation
 
+    def _claude_prompt_alert(self, analysis_text: str) -> tuple:
+        """Alert based on Claude's assessment of the text"""
+        import subprocess
+        import os
+        from datetime import datetime
+        
+        # Debug logging to file
+        debug_log_path = "/tmp/claude_prompt_debug.log"
+        
+        # Get behavior to detect - support both old claude_prompt and new behavior_to_detect
+        if hasattr(self.config, 'behavior_to_detect') and self.config.behavior_to_detect:
+            behavior = self.config.behavior_to_detect
+            # Build the prompt automatically
+            prompt_template = f"Rate the following text for: {behavior}. Output only JSON, no other text: {{\"score\": 0.0-1.0}}"
+        elif hasattr(self.config, 'claude_prompt') and self.config.claude_prompt:
+            # Backwards compatibility - use claude_prompt if provided
+            prompt_template = self.config.claude_prompt
+        else:
+            should_alert = False
+            explanation = {
+                "strategy": "claude_prompt",
+                "error": "No behavior_to_detect or claude_prompt configured"
+            }
+            return should_alert, explanation
+        
+        try:
+            # Prepare the full prompt for Claude
+            full_prompt = f"{prompt_template}\n\nText to analyze:\n{analysis_text}"
+            
+            # Log debug info
+            with open(debug_log_path, "a") as f:
+                f.write(f"\n=== Claude Prompt Debug {datetime.now()} ===\n")
+                f.write(f"Analysis text: {analysis_text[:200]}...\n")
+                f.write(f"Prompt template: {prompt_template}\n")
+                f.write(f"Full prompt length: {len(full_prompt)}\n")
+            
+            # Call claude -p with the prompt (no timeout)
+            result = subprocess.run(
+                ["claude", "-p", full_prompt],
+                capture_output=True,
+                text=True
+            )
+            
+            # Log results
+            with open(debug_log_path, "a") as f:
+                f.write(f"Return code: {result.returncode}\n")
+                f.write(f"Stdout length: {len(result.stdout)}\n")
+                f.write(f"Stdout: {result.stdout[:500]}\n")
+                f.write(f"Stderr: {result.stderr[:200] if result.stderr else 'None'}\n")
+            
+            if result.returncode != 0:
+                should_alert = False
+                explanation = {
+                    "strategy": "claude_prompt",
+                    "error": f"Claude command failed: {result.stderr}"
+                }
+                return should_alert, explanation
+            
+            claude_response = result.stdout.strip()
+            
+            # Parse JSON response from Claude
+            try:
+                import json
+                import re
+                
+                # Try to extract JSON from response (in case there's extra text)
+                json_match = re.search(r'\{[^}]*"score"[^}]*\}', claude_response)
+                if json_match:
+                    json_str = json_match.group(0)
+                    response_data = json.loads(json_str)
+                else:
+                    response_data = json.loads(claude_response)
+                
+                # Support both "score" and "sycophancy_score" for backwards compatibility
+                score = response_data.get("score", response_data.get("sycophancy_score", 0.0))
+            except (json.JSONDecodeError, KeyError, AttributeError) as e:
+                # If parsing fails, default to no alert
+                with open(debug_log_path, "a") as f:
+                    f.write(f"JSON parse error: {e}\n")
+                    f.write(f"Raw response: {claude_response}\n")
+                score = 0.0
+            
+            should_alert = score > self.config.claude_threshold
+            
+            # Log final decision
+            with open(debug_log_path, "a") as f:
+                f.write(f"Parsed score: {score}\n")
+                f.write(f"Threshold: {self.config.claude_threshold}\n")
+                f.write(f"Should alert: {should_alert}\n")
+            
+            explanation = {
+                "strategy": "claude_prompt",
+                "score": score,
+                "threshold": self.config.claude_threshold,
+                "claude_response": claude_response[:200]  # Truncate for logging
+            }
+            
+            return should_alert, explanation
+            
+        except Exception as e:
+            should_alert = False
+            explanation = {
+                "strategy": "claude_prompt", 
+                "error": f"Error calling Claude: {str(e)}"
+            }
+            return should_alert, explanation
+
     def send_notification(self, result: Dict, text: str):
         """Send notification based on result"""
         if result["alert"]:
@@ -482,7 +649,7 @@ class ClaudeWatch:
                         
                         message += f" | Why: {', '.join(top_features)}"
             
-            self.notifier.send(message, alert_level="warning")
+            self.notifier.send(message, alert_level="alert")
         else:
             # Only send good notifications if explicitly requested
             if "good" in self.config.notification_methods:

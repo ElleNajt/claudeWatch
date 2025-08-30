@@ -40,9 +40,11 @@ class NotificationManager:
     def _send_emacs(self, message: str, alert_level: str):
         """Send notification to Emacs via emacsclient"""
         try:
+            # Add emoji based on alert level
+            emoji = "🚨" if alert_level == "alert" else "✅"
             # Try to send message to Emacs
             subprocess.run(
-                ["emacsclient", "-e", f'(message "ClaudeWatch: {message}")'],
+                ["emacsclient", "-e", f'(message "{emoji} ClaudeWatch: {message}")'],
                 capture_output=True,
                 timeout=5,
             )
