@@ -69,7 +69,7 @@ Create `.claudewatch` in your project:
 
 ClaudeWatch will now monitor your sessions:
 - **Emacs notification**: "🚨 ClaudeWatch: Sycophantic behavior detected!"
-- **Terminal**: Shows nonzero exit code when unwanted behavior is found
+- **CLI Notification**: Shows nonzero exit code when unwanted behavior is found, prints in claude code directly. Unfortunately, claude code doesn't clear these out on the next message, leading to cruft. Use emacs instead, or customize it to use libnotify or somethign else.
 
 ## Behavior Detection Examples
 
