@@ -17,7 +17,7 @@ class WatchConfig:
     bad_examples_path: str = None
     alert_threshold: float = 2.0  # Alert if bad/good ratio > this
     feature_threshold: float = 0.02  # Show features with activation > this
-    alert_strategy: str = "any_bad_feature"  # "any_bad_feature", "ratio", "quality", "logistic_regression"
+    alert_strategy: str = "any_bad_feature"  # "any_bad_feature", "ratio", "quality", "logistic_regression", "claude_prompt"
     logistic_threshold: float = (
         0.7  # Alert if P(projective) > this for logistic regression
     )
@@ -34,6 +34,11 @@ class WatchConfig:
     _vector_source: str = None  # Optional custom vector file to use instead of auto-generated
     direct_vectors: Dict = None  # Optional direct vector specification with 'good' and 'bad' lists
     model_path: str = None  # Optional path to pre-trained classifier model
+    
+    # Claude prompt strategy configuration
+    claude_prompt: str = None  # Prompt for claude_prompt strategy
+    claude_threshold: float = 0.7  # Confidence threshold for claude_prompt alerts
+    behavior_to_detect: str = None  # Behavior description for automatic prompt building
 
     def __post_init__(self):
         if self.notification_methods is None:
@@ -61,12 +66,12 @@ class WatchConfig:
         """Validate configuration parameters"""
         errors = []
         
-        # Check that either example paths OR direct_vectors are provided
+        # Check that either example paths OR direct_vectors are provided (except for claude_prompt strategy)
         has_example_paths = self.good_examples_path and self.bad_examples_path
         has_direct_vectors = self.direct_vectors is not None
         
-        if not has_example_paths and not has_direct_vectors:
-            errors.append("Either (good_examples_path AND bad_examples_path) OR direct_vectors must be provided")
+        if self.alert_strategy != "claude_prompt" and not has_example_paths and not has_direct_vectors:
+            errors.append("Either (good_examples_path AND bad_examples_path) OR direct_vectors must be provided (not required for claude_prompt strategy)")
         
         # If using example paths, validate them
         if has_example_paths:
@@ -91,9 +96,16 @@ class WatchConfig:
             errors.append("logistic_threshold must be between 0 and 1")
         
         # Check alert strategy
-        valid_strategies = ["any_bad_feature", "ratio", "quality", "logistic_regression"]
+        valid_strategies = ["any_bad_feature", "ratio", "quality", "logistic_regression", "claude_prompt"]
         if self.alert_strategy not in valid_strategies:
             errors.append(f"alert_strategy must be one of: {valid_strategies}")
+        
+        # Check claude_prompt strategy specific validations
+        if self.alert_strategy == "claude_prompt":
+            if not self.claude_prompt and not self.behavior_to_detect:
+                errors.append("Either claude_prompt or behavior_to_detect must be provided when using claude_prompt strategy")
+            if not 0 <= self.claude_threshold <= 1:
+                errors.append("claude_threshold must be between 0 and 1")
         
         # Check notification methods
         valid_methods = ["cli", "emacs", "log"]

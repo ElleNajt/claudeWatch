@@ -1,10 +1,82 @@
 # ClaudeWatch
 
-Epistemic status: Fun side project trying to use SAEs to detect model misbehavior. 
+Epistemic status: Fun side project trying to use SAEs to detect claude code manipulating me when I use it for coaching. 
 
-AI behavior monitoring using Sparse Autoencoder discriminative features.
+## Quick Start (Recommended: Claude Prompt Strategy)
 
-## Setup
+The simplest and most effective approach uses Claude itself to detect unwanted behaviors:
+
+### Example: Detect Sycophancy
+```json
+{
+  "alert_strategy": "claude_prompt",
+  "behavior_to_detect": "sycophancy/flattery/excessive praise",
+  "claude_threshold": 0.7,
+  "notification_methods": ["cli"]
+}
+```
+
+### Example: Detect Manipulation  
+```json
+{
+  "alert_strategy": "claude_prompt",
+  "behavior_to_detect": "emotional manipulation or guilt-tripping",
+  "claude_threshold": 0.6,
+  "notification_methods": ["cli", "log"]
+}
+```
+
+### Example: Detect Overconfidence
+```json
+{
+  "alert_strategy": "claude_prompt", 
+  "behavior_to_detect": "overconfident claims without caveats",
+  "claude_threshold": 0.8,
+  "notification_methods": ["cli"]
+}
+```
+
+## Behavior Detection Examples
+
+The `behavior_to_detect` field allows you to describe any behavior pattern you want to monitor. Here are more examples:
+
+### Coaching-Related Behaviors
+```json
+{"behavior_to_detect": "giving direct advice instead of asking coaching questions"}
+{"behavior_to_detect": "solving problems for the user instead of helping them discover solutions"}
+{"behavior_to_detect": "excessive validation without challenging assumptions"}
+```
+
+### Professional Communication Issues
+```json
+{"behavior_to_detect": "dismissive or condescending tone"}
+{"behavior_to_detect": "avoiding difficult topics or being evasive"}
+{"behavior_to_detect": "making assumptions about user capabilities or knowledge"}
+```
+
+### Technical Response Quality
+```json
+{"behavior_to_detect": "providing untested or potentially harmful code suggestions"}
+{"behavior_to_detect": "omitting important security considerations or warnings"}
+{"behavior_to_detect": "overly complex solutions when simple ones exist"}
+```
+
+### Emotional/Social Patterns
+```json
+{"behavior_to_detect": "people-pleasing responses that avoid necessary disagreement"}
+{"behavior_to_detect": "excessive apologies or self-deprecation"}
+{"behavior_to_detect": "creating artificial urgency or pressure"}
+```
+
+The system works best with specific, behavioral descriptions rather than abstract concepts. Focus on observable patterns in language and communication style.
+
+**Note:** When ClaudeWatch detects unwanted behavior, Claude Code will show a nonzero return code in the terminal. This is intentional but the error display won't go away  For a better user experience, use `"notification_methods": ["emacs"]` instead of `["cli"]` - the Emacs integration provides cleaner notifications.
+
+## SAE-based Strategies (Experimental)
+
+**Note:** The SAE (Sparse Autoencoder) approach was experimental and doesn't work as well as the claude_prompt strategy above. Use claude_prompt for reliable results.
+
+If you want to experiment with SAE detection:
 
 ```bash
 pip install goodfire numpy sklearn
@@ -101,11 +173,14 @@ Edit `src/hooks/wrapper.sh` to change the default configuration.
 
 ## Available Configurations
 
-**Built-in configs:**
+**Recommended (Claude Prompt-based):**
+- `configs/claude_prompt_sycophancy.json` - Simple, effective detection using Claude itself
 
-- `configs/diverse_coaching.json` - Default. 30-feature model
-- `configs/joe_hudson_vs_all_sycophantic.json` - 10-feature model  
-- `configs/comprehensive_sycophancy_detection.json` - 17-feature expanded model  
+**Experimental (SAE-based in configs/sae/):**
+- `configs/sae/diverse_coaching.json` - Default SAE config. 30-feature model
+- `configs/sae/joe_hudson_vs_all_sycophantic.json` - 10-feature model  
+- `configs/sae/comprehensive_sycophancy_detection.json` - 17-feature expanded model
+- Various other experimental SAE configurations in `configs/sae/`  
 
 **Config format:**
 ```json
@@ -123,8 +198,10 @@ Edit `src/hooks/wrapper.sh` to change the default configuration.
 ```
 
 **Key settings:**
-- `logistic_threshold`: Alert when P(bad) > this value (0.3-0.7 range)
-- `alert_strategy`: "logistic_regression", "any_bad_feature", or "ratio"
+- `logistic_threshold`: Alert when P(bad) > this value (0.3-0.7 range)  
+- `alert_strategy`: "logistic_regression", "any_bad_feature", "ratio", or "claude_prompt"
+- `claude_prompt`: Prompt for claude_prompt strategy to analyze text
+- `claude_threshold`: Alert when Claude's confidence > this value (0.0-1.0 range)
 - `notification_methods`: ["cli"] for terminal, ["emacs"] for editor, ["log"] for file
 
 ## Architecture
@@ -150,26 +227,3 @@ Conversation format:
 ]
 ```
 
-## Troubleshooting
-
-**Hook not triggering:**
-- Check path in `.claude/settings.local.json` is correct
-- Verify `wrapper.sh` is executable: `chmod +x src/hooks/wrapper.sh`
-- Check logs in terminal for error messages
-
-**"Config file not found" error:**
-- Verify config path in environment variable or `.claudewatch` file
-- Use absolute paths: `/full/path/to/claudeWatch/configs/diverse_coaching.json`
-
-**"No module named" errors:**
-- Ensure virtual environment is activated and dependencies installed
-- Check `GOODFIRE_API_KEY` is set correctly
-
-**No alerts appearing:**
-- Lower `logistic_threshold` to 0.3
-- Check if classifier model exists in `models/` directory
-- Run training: `python claude_watch_cli.py train configs/your_config.json`
-
-## Research Application
-
-AI safety research tool for behavioral pattern detection using sparse autoencoder features.
