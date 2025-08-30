@@ -6,6 +6,10 @@ Epistemic status: Fun side project trying to detect claude code being sycophanti
 
 *ClaudeWatch detecting extremely subtle sycophantic behavior in real-time during a Claude Code session*
 
+![How it works](protecme.jpg)
+
+*This is how it works*
+
 ## Quick Start 
 
 ClaudeWatch monitors your Claude Code sessions and alerts you when Claude exhibits unwanted behaviors.
