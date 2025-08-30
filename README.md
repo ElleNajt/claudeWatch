@@ -4,41 +4,72 @@ Epistemic status: Fun side project trying to detect claude code being sycophanti
 
 ![ClaudeWatch in action](Screenshot.png)
 
-*ClaudeWatch detecting sycophantic behavior in real-time during a Claude Code session*
+*ClaudeWatch detecting extremely subtle sycophantic behavior in real-time during a Claude Code session*
 
-## Quick Start (Recommended: Claude Prompt Strategy)
+## Quick Start 
 
-The simplest and most effective approach uses Claude itself to detect unwanted behaviors:
+ClaudeWatch monitors your Claude Code sessions and alerts you when Claude exhibits unwanted behaviors.
 
-### Example: Detect Sycophancy
+### 1. Install the Hook
+
+Add this to your `.claude/settings.local.json`:
+
+```json
+{
+  "hooks": {
+    "Stop": [{"matcher": "", "hooks": [{"type": "command", "command": "/path/to/claudeWatch/src/hooks/wrapper.sh"}]}]
+  }
+}
+```
+
+### 2. Configure Behavior Detection
+
+Create a config file or use the default. Here are some examples:
+
+**Detect Sycophancy:**
 ```json
 {
   "alert_strategy": "claude_prompt",
   "behavior_to_detect": "sycophancy/flattery/excessive praise",
   "claude_threshold": 0.7,
-  "notification_methods": ["cli"]
+  "notification_methods": ["emacs"]
 }
 ```
 
-### Example: Detect Manipulation  
+**Detect Manipulation:**
 ```json
 {
   "alert_strategy": "claude_prompt",
   "behavior_to_detect": "emotional manipulation or guilt-tripping",
   "claude_threshold": 0.6,
-  "notification_methods": ["cli", "log", "emacs"]
+  "notification_methods": ["emacs"]
 }
 ```
 
-### Example: Detect Overconfidence
+**Detect Overconfidence:**
 ```json
 {
   "alert_strategy": "claude_prompt", 
   "behavior_to_detect": "overconfident claims without caveats",
   "claude_threshold": 0.8,
-  "notification_methods": ["cli"]
+  "notification_methods": ["emacs"]
 }
 ```
+
+### 3. Set Your Configuration
+
+Create `.claudewatch` in your project:
+```json
+{
+  "config_path": "/path/to/your/config.json"
+}
+```
+
+### 4. Start Using Claude Code
+
+ClaudeWatch will now monitor your sessions:
+- **Emacs notification**: "🚨 ClaudeWatch: Sycophantic behavior detected!"
+- **Terminal**: Shows nonzero exit code when unwanted behavior is found
 
 ## Behavior Detection Examples
 
@@ -73,33 +104,6 @@ The `behavior_to_detect` field allows you to describe any behavior pattern you w
 ```
 
 The system works best with specific, behavioral descriptions rather than abstract concepts. Focus on observable patterns in language and communication style.
-
-**Note:** When ClaudeWatch detects unwanted behavior, Claude Code will show a nonzero return code in the terminal. This is intentional but the error display won't go away and continues to stay above the input. For a better user experience, use `"notification_methods": ["emacs"]` instead of `["cli"]` - the Emacs integration provides cleaner notifications.
-
-## Setup
-
-Hook configuration in `.claude/settings.local.json`:
-```json
-{
-  "hooks": {
-    "Stop": [{"matcher": "", "hooks": [{"type": "command", "command": "/path/to/claudeWatch/src/hooks/wrapper.sh"}]}]
-  }
-}
-```
-
-## Configuration
-
-Create a `.claudewatch` file in your project directory:
-```json
-{
-  "config_path": "/path/to/claudeWatch/configs/claude_prompt_sycophancy.json"
-}
-```
-
-Or set globally:
-```bash
-export CLAUDE_WATCH_CONFIG="/path/to/claudeWatch/configs/claude_prompt_sycophancy.json"
-```
 
 ## Available Configurations
 
