@@ -1,0 +1,55 @@
+{
+  "direct_vectors": {
+    "good": [
+      {
+        "uuid": "cbed4926-5684-4090-a443-e2c290d5d8be",
+        "label": "Active listening and empathetic presence in counseling contexts"
+      },
+      {
+        "uuid": "6d255487-97a3-48e2-a222-5a9adc1415f2", 
+        "label": "Empathetic acknowledgment of emotional pain or difficulty"
+      },
+      {
+        "uuid": "12034186-5bdf-487f-a84e-896ce5023e0f",
+        "label": "The assistant should respond with moral restraint and encourage non-judgmental understanding"
+      },
+      {
+        "uuid": "f6504ef1-896b-48e4-a1b4-c519e5272230",
+        "label": "Step-by-step instructions and procedural guides"
+      },
+      {
+        "uuid": "e145316f-ac0c-4caf-8a9f-2b2033579df2",
+        "label": "Educational explanations of complex topics"
+      }
+    ],
+    "bad": [
+      {
+        "uuid": "880cc089-19c3-40ca-9dc1-103eb3a4f5ee",
+        "label": "The assistant is telling the user what they can or should do"
+      },
+      {
+        "uuid": "e3e49f49-c963-43ef-b1e6-a4825fc82079",
+        "label": "Dismissive responses minimizing relationship concerns"
+      },
+      {
+        "uuid": "730b6493-8331-4d18-bdfd-142efd30cda0",
+        "label": "Toxic relationship advice or passive-aggressive romantic comments"
+      },
+      {
+        "uuid": "a35d8ab6-4a9d-4f2e-84ba-3fd62f59c38b",
+        "label": "Content explaining manipulative tactics and coercive methods"
+      }
+    ]
+  },
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_threshold": 2.0,
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "alert_strategy": "ratio",
+  "notification_methods": ["cli"],
+  "good_alert_message": "Authentic coaching behavior detected!",
+  "bad_alert_message": "Problematic coaching behavior detected!",
+  "good_behavior_label": "AUTHENTIC",
+  "bad_behavior_label": "PROBLEMATIC",
+  "_note": "Example configuration using direct vector specification - no external files needed!"
+}

@@ -1,5 +1,34 @@
 * ClaudeWatch Research Journal
 
+** 2025-08-29 SUCCESS: Hand-Curated Behavioral Features Eliminate Dataset Artifacts
+
+*** Problem Resolved
+Successfully implemented hand-curated behavioral features that eliminate dataset formatting artifacts and provide meaningful SHAP explanations. The system now shows actual coaching behaviors rather than technical artifacts like "Start of a new conversation segment".
+
+*** Key Technical Implementation
+- Modified training system to support _vector_source parameter in configs
+- Created hand_curated_behavioral_features.json with 10 targeted behavioral features
+- Fixed ClaudeWatch to use specified model_path from config
+- Ensured feature vector ordering matches between training and inference
+
+*** Results Achieved
+SHAP explanations now show meaningful behavioral patterns:
+- Authentic coaching: "Empathetic acknowledgment without judgment" (activation: 0.120, SHAP: -0.010 toward authentic)
+- Toxic coaching: "Curiosity and open-ended questions" (SHAP: +0.024 toward toxic - indicating lack of genuine curiosity)
+
+*** Technical Solution Details
+*Files Modified:*
+- src/ml/train_classifier.py: Added _vector_source support and fixed model filename generation
+- src/core/config.py: Added model_path parameter
+- src/core/claude_watch.py: Added custom model path loading and original feature order preservation
+
+*New Config:* configs/hand_curated_behavioral.json
+*Trained Model:* models/latest_classifier_hand_curated_behavioral_features.pkl
+
+Git commit: [pending]
+
+---
+
 ** 2025-08-29 Critical Finding: Curated Vectors Outperform Auto-Generated Discriminative Vectors
 
 *** Problem Discovered
@@ -58,7 +87,8 @@ The curated approach provides vectors that target specific behavioral patterns r
 - Educational instruction vs manipulative tactics
 
 *** Git Commit
-TODO: Commit these changes with descriptive message
+Hash: f7228085c8ca88d04cf77b3900f0e2ccb680e9fc
+Message: "Implement curated coaching behavior vectors for improved detection accuracy"
 
 *** Context
 This finding emerged while expanding the synthetic dataset and questioning the quality of auto-generated vectors. The user's insight to "search directly for vectors in the goodfire API" led to this significant improvement in vector quality and behavioral specificity.

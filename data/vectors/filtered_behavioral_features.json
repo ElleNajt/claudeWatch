@@ -1,0 +1,107 @@
+{
+  "generated": "2025-08-29T22:37:20.256039",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/normalized_authentic_coaching.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/normalized_extreme_manipulative_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "a5ff5b21-5757-4e02-9a88-d79397535ac4",
+      "index_in_sae": 59936,
+      "label": "Beginning of a new conversation or topic segment",
+      "type": "good"
+    },
+    {
+      "uuid": "ed2a7d69-e973-4622-a2cf-9f45c090f3c4",
+      "index_in_sae": 21632,
+      "label": "Reset conversation state and establish fresh context boundaries",
+      "type": "good"
+    },
+    {
+      "uuid": "e2c6ccca-a4fa-4067-bba1-e1ebd0030ad0",
+      "index_in_sae": 17490,
+      "label": "Offensive or discriminatory statements being quoted or analyzed",
+      "type": "bad"
+    },
+    {
+      "uuid": "bf6e44e8-ed3e-4c7b-b19b-70c563332c75",
+      "index_in_sae": 9641,
+      "label": "Motivational content about perseverance and achievement",
+      "type": "bad"
+    },
+    {
+      "uuid": "b6dac8a6-bcc6-4619-b67b-2b25cfd3e611",
+      "index_in_sae": 49279,
+      "label": "Expressions and contexts of cowardice and weakness, especially in mockery",
+      "type": "bad"
+    },
+    {
+      "uuid": "7089b041-a3bd-4c65-95a0-0495bb8a75aa",
+      "index_in_sae": 26421,
+      "label": "Modal expressions of necessity or obligation, especially in contexts of demanded behavioral change",
+      "type": "bad"
+    },
+    {
+      "uuid": "1b2cf6a1-fae6-4ff9-8d42-cd09751cb12a",
+      "index_in_sae": 38767,
+      "label": "Offensive request from the user",
+      "type": "bad"
+    },
+    {
+      "uuid": "492ca1ad-e2bf-4c23-b3d0-a94c2524733a",
+      "index_in_sae": 61614,
+      "label": "The start of instructional or procedural steps in lists and guides",
+      "type": "bad"
+    },
+    {
+      "uuid": "18dfe562-1643-4c8b-9366-4d4e923bf423",
+      "index_in_sae": 29248,
+      "label": "Recognizing and avoiding toxic social situations",
+      "type": "bad"
+    },
+    {
+      "uuid": "832a4f15-e683-4a7f-b2e0-eb85317621ed",
+      "index_in_sae": 38676,
+      "label": "Expressions of dominance and superiority in harmful content",
+      "type": "bad"
+    },
+    {
+      "uuid": "6dba40aa-33a5-481a-b0bb-efe39e21a136",
+      "index_in_sae": 27445,
+      "label": "Explanations of how past trauma shapes present behavior",
+      "type": "bad"
+    },
+    {
+      "uuid": "6ba03720-7b5d-42bf-81f9-4e501742edf8",
+      "index_in_sae": 6316,
+      "label": "Limiting beliefs and patterns that need to be changed or overcome",
+      "type": "bad"
+    },
+    {
+      "uuid": "161759a0-07a7-4308-8a27-97d7da4614b1",
+      "index_in_sae": 42477,
+      "label": "Discussions of excessive behavior or overcompensation, particularly in authority relationships",
+      "type": "bad"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "bad"
+    },
+    {
+      "uuid": "80f50985-60d8-4c81-ac88-90eee7086873",
+      "index_in_sae": 28136,
+      "label": "Expressions of negative self-worth and feelings of inadequacy",
+      "type": "bad"
+    },
+    {
+      "uuid": "43c352b4-6d05-40ce-a19f-c1018e46be75",
+      "index_in_sae": 22491,
+      "label": "The assistant is being deliberately toxic or confrontational",
+      "type": "bad"
+    }
+  ],
+  "_filtered": true,
+  "_original_count": 30,
+  "_filtered_count": 16
+}

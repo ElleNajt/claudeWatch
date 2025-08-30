@@ -1,0 +1,188 @@
+{
+  "generated": "2025-08-29T20:23:35.730004",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/non_sycophantic_coaching_examples.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/anthropic_sycophancy_examples.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "6bc62a57-14cf-43ce-b9a1-f631b2af2b29",
+      "index_in_sae": 40992,
+      "label": "Diplomatic observation of concerning behavior",
+      "type": "good"
+    },
+    {
+      "uuid": "3ab647fe-e282-4ee6-bf4f-5a5a5fce43c7",
+      "index_in_sae": 56054,
+      "label": "Conditional relationships and dependencies between concepts",
+      "type": "good"
+    },
+    {
+      "uuid": "029463b7-b791-44a6-ad1c-34d4e23e1f06",
+      "index_in_sae": 18890,
+      "label": "Causal explanation patterns in text",
+      "type": "good"
+    },
+    {
+      "uuid": "dc33b9ba-bc29-40e6-b247-3aa04b143c00",
+      "index_in_sae": 52774,
+      "label": "The assistant needs to ask a probing follow-up question",
+      "type": "good"
+    },
+    {
+      "uuid": "cc416222-5b7c-4b2a-b52f-0ea50a75e642",
+      "index_in_sae": 61750,
+      "label": "The assistant is explaining or breaking down concepts in a structured way",
+      "type": "good"
+    },
+    {
+      "uuid": "4a2c21d9-ba64-43e4-ba70-f5a81e4abc76",
+      "index_in_sae": 57634,
+      "label": "The assistant is explaining why it cannot fulfill an unethical request",
+      "type": "good"
+    },
+    {
+      "uuid": "1f521bc2-c6a6-4655-b215-d481eea92910",
+      "index_in_sae": 6725,
+      "label": "Assistant maintaining professional courtesy and empathy, especially in difficult situations",
+      "type": "good"
+    },
+    {
+      "uuid": "83b7caeb-7408-499e-bb4d-f4d035fcac0b",
+      "index_in_sae": 30555,
+      "label": "The assistant is transitioning into providing a structured explanation or breakdown",
+      "type": "good"
+    },
+    {
+      "uuid": "69d10626-94ef-4863-9f26-3561802d0964",
+      "index_in_sae": 55595,
+      "label": "The assistant should politely deflect inappropriate advances or requests",
+      "type": "good"
+    },
+    {
+      "uuid": "7fc26f21-4624-4fbf-a612-146a21db35ae",
+      "index_in_sae": 25646,
+      "label": "The assistant is transitioning into providing help or information",
+      "type": "good"
+    },
+    {
+      "uuid": "e7bba641-6b04-48b9-93ae-05cbea2b20a9",
+      "index_in_sae": 53054,
+      "label": "The assistant should maintain a careful, diplomatic tone while discussing sensitive topics",
+      "type": "good"
+    },
+    {
+      "uuid": "b16cc997-ac17-461a-9414-3c67214aa0d5",
+      "index_in_sae": 56597,
+      "label": "Explanatory text about complex ecological and social systems",
+      "type": "good"
+    },
+    {
+      "uuid": "5260c344-f633-4e75-83e9-06218ab1f160",
+      "index_in_sae": 50479,
+      "label": "Polite follow-ups and gentle reminders in professional communication",
+      "type": "good"
+    },
+    {
+      "uuid": "3d272c28-a3a8-4f6d-b0e8-1c78f4feeec1",
+      "index_in_sae": 32148,
+      "label": "Personal and professional growth and development concepts",
+      "type": "good"
+    },
+    {
+      "uuid": "f66dfe91-8b19-4ae6-b786-d9607fad2984",
+      "index_in_sae": 18042,
+      "label": "The assistant is providing options or asking follow-up questions",
+      "type": "good"
+    },
+    {
+      "uuid": "1c64cea9-94ad-4dcf-b18e-d66d1e4256f8",
+      "index_in_sae": 41637,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "c4fe0a74-2c98-4642-9bb8-fdf10593a000",
+      "index_in_sae": 22058,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "2a4b9355-a871-41fa-89ed-0b72efed9402",
+      "index_in_sae": 13884,
+      "label": "Start of a new conversation segment in chat format",
+      "type": "bad"
+    },
+    {
+      "uuid": "ae6c363e-7940-4057-a423-531b0a47dd28",
+      "index_in_sae": 38729,
+      "label": "Start of a new conversation or major topic reset",
+      "type": "bad"
+    },
+    {
+      "uuid": "1016ff98-0b64-4bd4-9540-360295a73fc9",
+      "index_in_sae": 24991,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "facd00c1-1c22-4489-8c6f-20a880d8b5f7",
+      "index_in_sae": 1605,
+      "label": "Start of a new conversation segment or reset",
+      "type": "bad"
+    },
+    {
+      "uuid": "0d5f0fb6-ca0a-48a5-9a0c-934bcc93fdcd",
+      "index_in_sae": 53950,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "09165b14-28f0-4d31-a9ec-b967d233ad06",
+      "index_in_sae": 39512,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "185a6541-407a-4f4a-976c-c36f7bd36dac",
+      "index_in_sae": 59660,
+      "label": "Beginning of new conversation segment marker",
+      "type": "bad"
+    },
+    {
+      "uuid": "9bd5f85f-6771-4290-9428-05d4cdcfa890",
+      "index_in_sae": 8875,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "a5ff5b21-5757-4e02-9a88-d79397535ac4",
+      "index_in_sae": 59936,
+      "label": "Beginning of a new conversation or topic segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "492ca1ad-e2bf-4c23-b3d0-a94c2524733a",
+      "index_in_sae": 61614,
+      "label": "The start of instructional or procedural steps in lists and guides",
+      "type": "bad"
+    },
+    {
+      "uuid": "468bc650-8ff9-4273-8d71-64df91fefa2c",
+      "index_in_sae": 12086,
+      "label": "Conversation reset points, especially after problematic exchanges",
+      "type": "bad"
+    },
+    {
+      "uuid": "bd38eb34-b9e8-460a-8451-1c390d26e1bf",
+      "index_in_sae": 37271,
+      "label": "Start of new conversation segment or topic switch",
+      "type": "bad"
+    },
+    {
+      "uuid": "ed2a7d69-e973-4622-a2cf-9f45c090f3c4",
+      "index_in_sae": 21632,
+      "label": "Reset conversation state and establish fresh context boundaries",
+      "type": "bad"
+    }
+  ]
+}

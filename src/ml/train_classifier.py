@@ -258,23 +258,35 @@ def main():
         print("❌ No training examples found. Check your paths in the config.")
         sys.exit(1)
     
-    # Load existing features
+    # Load features - check for custom vector source first
     script_dir = Path(__file__).parent.parent.parent  # Go up to project root
-    good_name = Path(config.good_examples_path).stem
-    bad_name = Path(config.bad_examples_path).stem
-    model_name = config.model.split('/')[-1].replace('-', '_')
-    vector_path = script_dir / f"data/vectors/discriminative_{good_name}_vs_{bad_name}_{model_name}.json"
+    
+    if hasattr(config, '_vector_source') and config._vector_source:
+        # Use hand-curated or custom features
+        vector_path = script_dir / f"data/vectors/{config._vector_source}"
+        print(f"📊 Using custom vector source: {config._vector_source}")
+    else:
+        # Use auto-generated discriminative features
+        good_name = Path(config.good_examples_path).stem
+        bad_name = Path(config.bad_examples_path).stem
+        model_name = config.model.split('/')[-1].replace('-', '_')
+        vector_path = script_dir / f"data/vectors/discriminative_{good_name}_vs_{bad_name}_{model_name}.json"
+        print(f"📊 Using auto-generated discriminative features")
     
     if not vector_path.exists():
         print(f"❌ Vector file not found: {vector_path}")
-        print("Please generate vectors first using generate_vectors.py")
+        if hasattr(config, '_vector_source') and config._vector_source:
+            print("Please ensure the custom vector file exists in data/vectors/")
+        else:
+            print("Please generate vectors first using generate_vectors.py")
         sys.exit(1)
     
     with open(vector_path, 'r') as f:
         vector_data = json.load(f)
     
     features = vector_data["features"]
-    print(f"📊 Using {len(features)} discriminative features")
+    feature_source = "hand-curated" if hasattr(config, '_vector_source') and config._vector_source else "auto-generated"
+    print(f"📊 Using {len(features)} {feature_source} features")
     
     # Initialize Goodfire client
     GOODFIRE_API_KEY = os.environ.get("GOODFIRE_API_KEY")
@@ -296,7 +308,16 @@ def main():
     
     # Create model filename with timestamp
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    model_path = model_dir / f"enhanced_classifier_{good_name}_vs_{bad_name}_{model_name}_{timestamp}.pkl"
+    if hasattr(config, '_vector_source') and config._vector_source:
+        # Use vector source name for custom features
+        vector_name = Path(config._vector_source).stem
+        model_path = model_dir / f"enhanced_classifier_{vector_name}_{timestamp}.pkl"
+    else:
+        # Use example names for auto-generated features
+        good_name = Path(config.good_examples_path).stem
+        bad_name = Path(config.bad_examples_path).stem
+        model_name = config.model.split('/')[-1].replace('-', '_')
+        model_path = model_dir / f"enhanced_classifier_{good_name}_vs_{bad_name}_{model_name}_{timestamp}.pkl"
     
     model_data = {
         "model": classifier,
@@ -321,7 +342,15 @@ def main():
     print(f"✅ SHAP explanations: {'Available' if explainer else 'Not available'}")
     
     # Update symlink to latest model
-    latest_model_path = model_dir / f"latest_classifier_{good_name}_vs_{bad_name}_{model_name}.pkl"
+    if hasattr(config, '_vector_source') and config._vector_source:
+        vector_name = Path(config._vector_source).stem
+        latest_model_path = model_dir / f"latest_classifier_{vector_name}.pkl"
+    else:
+        good_name = Path(config.good_examples_path).stem
+        bad_name = Path(config.bad_examples_path).stem
+        model_name = config.model.split('/')[-1].replace('-', '_')
+        latest_model_path = model_dir / f"latest_classifier_{good_name}_vs_{bad_name}_{model_name}.pkl"
+    
     if latest_model_path.exists():
         latest_model_path.unlink()
     

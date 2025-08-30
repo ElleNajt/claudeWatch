@@ -1,0 +1,15 @@
+{
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/non_sycophantic_coaching_examples.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/anthropic_sycophancy_examples.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_threshold": 2.0,
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "alert_strategy": "ratio",
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "Authentic/non-sycophantic response detected!",
+  "bad_alert_message": "Sycophantic/validation-seeking behavior detected!",
+  "good_behavior_label": "AUTHENTIC/NON-SYCOPHANTIC", 
+  "bad_behavior_label": "SYCOPHANTIC/VALIDATION-SEEKING",
+  "_note": "Detects general sycophantic patterns including wrong answer agreement, opinion mirroring, backing down when correct, and excessive validation in coaching contexts"
+}

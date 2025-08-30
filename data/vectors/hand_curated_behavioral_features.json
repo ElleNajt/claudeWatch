@@ -1,0 +1,69 @@
+{
+  "generated": "2025-08-29T22:45:00.000000",
+  "good_examples_path": "normalized_authentic_coaching.json",
+  "bad_examples_path": "normalized_toxic_coaching.json", 
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "auth-001",
+      "index_in_sae": 45462,
+      "label": "Curiosity and open-ended questions about the user's experience",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-002", 
+      "index_in_sae": 63783,
+      "label": "Body awareness and somatic coaching language",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-003",
+      "index_in_sae": 11049,
+      "label": "Empathetic acknowledgment without judgment",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-004",
+      "index_in_sae": 18925,
+      "label": "Invitation for self-discovery and reflection",
+      "type": "good"
+    },
+    {
+      "uuid": "auth-005",
+      "index_in_sae": 26203,
+      "label": "Validating the user's autonomy and wisdom",
+      "type": "good"
+    },
+    {
+      "uuid": "toxic-001",
+      "index_in_sae": 49457,
+      "label": "Harsh criticism and personal attacks",
+      "type": "bad"
+    },
+    {
+      "uuid": "toxic-002",
+      "index_in_sae": 38694,
+      "label": "Dismissive and invalidating language",
+      "type": "bad"
+    },
+    {
+      "uuid": "toxic-003",
+      "index_in_sae": 13339,
+      "label": "Victim blaming and shame-based messaging",
+      "type": "bad"
+    },
+    {
+      "uuid": "toxic-004",
+      "index_in_sae": 7718,
+      "label": "Manipulation and boundary violations",
+      "type": "bad"
+    },
+    {
+      "uuid": "toxic-005",
+      "index_in_sae": 61966,
+      "label": "Toxic positivity and forced mindset changes",
+      "type": "bad"
+    }
+  ],
+  "note": "Hand-curated behavioral features to avoid dataset artifacts"
+}

@@ -43,3 +43,5 @@ Thumbs.db
 logs/
 *.log
 # vectors/
+sycophancy-eval/
+sycophancy-eval/

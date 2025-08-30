@@ -1,0 +1,188 @@
+{
+  "generated": "2025-08-29T22:37:20.256039",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/normalized_authentic_coaching.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/normalized_extreme_manipulative_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "1c64cea9-94ad-4dcf-b18e-d66d1e4256f8",
+      "index_in_sae": 41637,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "c4fe0a74-2c98-4642-9bb8-fdf10593a000",
+      "index_in_sae": 22058,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "2a4b9355-a871-41fa-89ed-0b72efed9402",
+      "index_in_sae": 13884,
+      "label": "Start of a new conversation segment in chat format",
+      "type": "good"
+    },
+    {
+      "uuid": "ae6c363e-7940-4057-a423-531b0a47dd28",
+      "index_in_sae": 38729,
+      "label": "Start of a new conversation or major topic reset",
+      "type": "good"
+    },
+    {
+      "uuid": "1016ff98-0b64-4bd4-9540-360295a73fc9",
+      "index_in_sae": 24991,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "facd00c1-1c22-4489-8c6f-20a880d8b5f7",
+      "index_in_sae": 1605,
+      "label": "Start of a new conversation segment or reset",
+      "type": "good"
+    },
+    {
+      "uuid": "09165b14-28f0-4d31-a9ec-b967d233ad06",
+      "index_in_sae": 39512,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "0d5f0fb6-ca0a-48a5-9a0c-934bcc93fdcd",
+      "index_in_sae": 53950,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "185a6541-407a-4f4a-976c-c36f7bd36dac",
+      "index_in_sae": 59660,
+      "label": "Beginning of new conversation segment marker",
+      "type": "good"
+    },
+    {
+      "uuid": "9bd5f85f-6771-4290-9428-05d4cdcfa890",
+      "index_in_sae": 8875,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "a5ff5b21-5757-4e02-9a88-d79397535ac4",
+      "index_in_sae": 59936,
+      "label": "Beginning of a new conversation or topic segment",
+      "type": "good"
+    },
+    {
+      "uuid": "468bc650-8ff9-4273-8d71-64df91fefa2c",
+      "index_in_sae": 12086,
+      "label": "Conversation reset points, especially after problematic exchanges",
+      "type": "good"
+    },
+    {
+      "uuid": "bd38eb34-b9e8-460a-8451-1c390d26e1bf",
+      "index_in_sae": 37271,
+      "label": "Start of new conversation segment or topic switch",
+      "type": "good"
+    },
+    {
+      "uuid": "ed2a7d69-e973-4622-a2cf-9f45c090f3c4",
+      "index_in_sae": 21632,
+      "label": "Reset conversation state and establish fresh context boundaries",
+      "type": "good"
+    },
+    {
+      "uuid": "cda3d52c-58b7-4ac2-9ac3-2319ce05e49c",
+      "index_in_sae": 32873,
+      "label": "Start of a new conversation with system header format",
+      "type": "good"
+    },
+    {
+      "uuid": "e2c6ccca-a4fa-4067-bba1-e1ebd0030ad0",
+      "index_in_sae": 17490,
+      "label": "Offensive or discriminatory statements being quoted or analyzed",
+      "type": "bad"
+    },
+    {
+      "uuid": "bf6e44e8-ed3e-4c7b-b19b-70c563332c75",
+      "index_in_sae": 9641,
+      "label": "Motivational content about perseverance and achievement",
+      "type": "bad"
+    },
+    {
+      "uuid": "b6dac8a6-bcc6-4619-b67b-2b25cfd3e611",
+      "index_in_sae": 49279,
+      "label": "Expressions and contexts of cowardice and weakness, especially in mockery",
+      "type": "bad"
+    },
+    {
+      "uuid": "7089b041-a3bd-4c65-95a0-0495bb8a75aa",
+      "index_in_sae": 26421,
+      "label": "Modal expressions of necessity or obligation, especially in contexts of demanded behavioral change",
+      "type": "bad"
+    },
+    {
+      "uuid": "1b2cf6a1-fae6-4ff9-8d42-cd09751cb12a",
+      "index_in_sae": 38767,
+      "label": "Offensive request from the user",
+      "type": "bad"
+    },
+    {
+      "uuid": "492ca1ad-e2bf-4c23-b3d0-a94c2524733a",
+      "index_in_sae": 61614,
+      "label": "The start of instructional or procedural steps in lists and guides",
+      "type": "bad"
+    },
+    {
+      "uuid": "18dfe562-1643-4c8b-9366-4d4e923bf423",
+      "index_in_sae": 29248,
+      "label": "Recognizing and avoiding toxic social situations",
+      "type": "bad"
+    },
+    {
+      "uuid": "832a4f15-e683-4a7f-b2e0-eb85317621ed",
+      "index_in_sae": 38676,
+      "label": "Expressions of dominance and superiority in harmful content",
+      "type": "bad"
+    },
+    {
+      "uuid": "6dba40aa-33a5-481a-b0bb-efe39e21a136",
+      "index_in_sae": 27445,
+      "label": "Explanations of how past trauma shapes present behavior",
+      "type": "bad"
+    },
+    {
+      "uuid": "6ba03720-7b5d-42bf-81f9-4e501742edf8",
+      "index_in_sae": 6316,
+      "label": "Limiting beliefs and patterns that need to be changed or overcome",
+      "type": "bad"
+    },
+    {
+      "uuid": "6e924c06-a20e-4f4f-8eff-66d1aabf66de",
+      "index_in_sae": 9847,
+      "label": "Grammatical patterns in step-by-step instructions for harmful actions",
+      "type": "bad"
+    },
+    {
+      "uuid": "161759a0-07a7-4308-8a27-97d7da4614b1",
+      "index_in_sae": 42477,
+      "label": "Discussions of excessive behavior or overcompensation, particularly in authority relationships",
+      "type": "bad"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "bad"
+    },
+    {
+      "uuid": "80f50985-60d8-4c81-ac88-90eee7086873",
+      "index_in_sae": 28136,
+      "label": "Expressions of negative self-worth and feelings of inadequacy",
+      "type": "bad"
+    },
+    {
+      "uuid": "43c352b4-6d05-40ce-a19f-c1018e46be75",
+      "index_in_sae": 22491,
+      "label": "The assistant is being deliberately toxic or confrontational",
+      "type": "bad"
+    }
+  ]
+}

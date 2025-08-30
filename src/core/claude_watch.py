@@ -57,8 +57,8 @@ class ClaudeWatch:
         self.classifier_model = None
         self.shap_explainer = None
         
-        # Load cached vectors and classifier
-        self._load_cached_vectors()
+        # Load vectors (cached, direct, or auto-generated) and classifier
+        self._load_vectors()
         self._load_classifier_if_needed()
 
     def _load_cached_vectors(self):
@@ -96,6 +96,76 @@ class ClaudeWatch:
             f"Loaded {len(self.good_features)} good and {len(self.bad_features)} bad features"
         )
 
+    def _load_vectors(self):
+        """Load vectors using priority: direct_vectors > cached vectors > error"""
+        if self.config.direct_vectors:
+            self._load_direct_vectors()
+        else:
+            self._load_cached_vectors()
+    
+    def _load_direct_vectors(self):
+        """Load vectors directly specified in config"""
+        print("Loading directly specified vectors from config...")
+        
+        direct_vectors = self.config.direct_vectors
+        if not isinstance(direct_vectors, dict) or 'good' not in direct_vectors or 'bad' not in direct_vectors:
+            raise ValueError("direct_vectors must be a dict with 'good' and 'bad' keys")
+        
+        good_specs = direct_vectors['good']
+        bad_specs = direct_vectors['bad']
+        
+        if not isinstance(good_specs, list) or not isinstance(bad_specs, list):
+            raise ValueError("direct_vectors 'good' and 'bad' must be lists")
+        
+        # Initialize feature lists
+        self.good_features = []
+        self.bad_features = []
+        self.features = []
+        
+        # Process good vectors
+        for spec in good_specs:
+            if not isinstance(spec, dict) or 'uuid' not in spec:
+                raise ValueError("Each vector spec must be a dict with 'uuid' key")
+            
+            # Create Feature object
+            feature_obj = goodfire.Feature(
+                uuid=spec['uuid'],
+                label=spec.get('label', f"Good feature {spec['uuid'][:8]}"),
+                index_in_sae=spec.get('index_in_sae', 0),  # Will be populated when needed
+            )
+            self.good_features.append(feature_obj)
+            
+            # Add to features list for compatibility
+            self.features.append({
+                'uuid': spec['uuid'],
+                'label': spec.get('label', f"Good feature {spec['uuid'][:8]}"),
+                'index_in_sae': spec.get('index_in_sae', 0),
+                'type': 'good'
+            })
+        
+        # Process bad vectors
+        for spec in bad_specs:
+            if not isinstance(spec, dict) or 'uuid' not in spec:
+                raise ValueError("Each vector spec must be a dict with 'uuid' key")
+            
+            # Create Feature object
+            feature_obj = goodfire.Feature(
+                uuid=spec['uuid'],
+                label=spec.get('label', f"Bad feature {spec['uuid'][:8]}"),
+                index_in_sae=spec.get('index_in_sae', 0),  # Will be populated when needed
+            )
+            self.bad_features.append(feature_obj)
+            
+            # Add to features list for compatibility
+            self.features.append({
+                'uuid': spec['uuid'],
+                'label': spec.get('label', f"Bad feature {spec['uuid'][:8]}"),
+                'index_in_sae': spec.get('index_in_sae', 0),
+                'type': 'bad'
+            })
+        
+        print(f"Loaded {len(self.good_features)} good and {len(self.bad_features)} bad features directly from config")
+
     def _load_classifier_if_needed(self):
         """Load logistic regression classifier if using that strategy"""
         if self.config.alert_strategy != "logistic_regression":
@@ -110,26 +180,31 @@ class ClaudeWatch:
             SHAP_AVAILABLE = False
 
         # Build classifier path
-        if isinstance(self.config.good_examples_path, list):
-            # Create name from multiple files
-            good_names = [Path(p).stem for p in self.config.good_examples_path]
-            good_name = "_plus_".join(good_names)
+        if hasattr(self.config, 'model_path') and self.config.model_path:
+            # Use specified model path
+            model_path = Path(self.config.model_path)
         else:
-            good_name = Path(self.config.good_examples_path).stem
-        bad_name = Path(self.config.bad_examples_path).stem
-        model_name = self.config.model.split("/")[-1].replace("-", "_")
-        script_dir = Path(__file__).parent.parent.parent
-        
-        # Try enhanced classifier first, fallback to original
-        enhanced_model_path = script_dir / f"models/enhanced_classifier_{good_name}_vs_{bad_name}_{model_name}_*.pkl"
-        model_paths = list(script_dir.glob(f"models/enhanced_classifier_{good_name}_vs_{bad_name}_{model_name}_*.pkl"))
-        
-        if model_paths:
-            # Use most recent enhanced model
-            model_path = max(model_paths, key=lambda p: p.stat().st_mtime)
-        else:
-            # Fallback to original model
-            model_path = script_dir / f"models/projective_classifier_{good_name}_vs_{bad_name}_{model_name}.pkl"
+            # Auto-generate path from example names (legacy behavior)
+            if isinstance(self.config.good_examples_path, list):
+                # Create name from multiple files
+                good_names = [Path(p).stem for p in self.config.good_examples_path]
+                good_name = "_plus_".join(good_names)
+            else:
+                good_name = Path(self.config.good_examples_path).stem
+            bad_name = Path(self.config.bad_examples_path).stem
+            model_name = self.config.model.split("/")[-1].replace("-", "_")
+            script_dir = Path(__file__).parent.parent.parent
+            
+            # Try enhanced classifier first, fallback to original
+            enhanced_model_path = script_dir / f"models/enhanced_classifier_{good_name}_vs_{bad_name}_{model_name}_*.pkl"
+            model_paths = list(script_dir.glob(f"models/enhanced_classifier_{good_name}_vs_{bad_name}_{model_name}_*.pkl"))
+            
+            if model_paths:
+                # Use most recent enhanced model
+                model_path = max(model_paths, key=lambda p: p.stat().st_mtime)
+            else:
+                # Fallback to original model
+                model_path = script_dir / f"models/projective_classifier_{good_name}_vs_{bad_name}_{model_name}.pkl"
 
         if not model_path.exists():
             raise FileNotFoundError(
@@ -211,6 +286,12 @@ class ClaudeWatch:
         # Extract activations for our features
         good_activations = []
         bad_activations = []
+        
+        # Also store activations in original feature order for logistic regression
+        self.all_activations = []
+        for feature in self.features:
+            activation = mean_activations[feature['index_in_sae']]
+            self.all_activations.append(float(activation))
 
         for feature in self.good_features:
             activation = mean_activations[feature.index_in_sae]
@@ -279,8 +360,14 @@ class ClaudeWatch:
         if not self.classifier_model:
             return False, {"error": "Classifier not loaded"}
         
-        # Create feature vector
-        feature_vector = np.array(good_activations + bad_activations).reshape(1, -1)
+        # Create feature vector in the same order as training
+        # The training script uses self.features which maintains original JSON order
+        if hasattr(self, 'all_activations'):
+            # Use pre-computed activations in original order
+            feature_vector = np.array(self.all_activations).reshape(1, -1)
+        else:
+            # Fallback: combine good and bad (may not match training order)
+            feature_vector = np.array(good_activations + bad_activations).reshape(1, -1)
         
         # Get prediction
         prediction = self.classifier_model.predict(feature_vector)[0]

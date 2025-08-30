@@ -1,0 +1,16 @@
+{
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/normalized_authentic_coaching.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/normalized_extreme_manipulative_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "alert_strategy": "logistic_regression",
+  "feature_threshold": 0.05,
+  "logistic_threshold": 0.7,
+  "model_path": "/Users/elle/code/claudeWatch/models/latest_classifier_hand_curated_behavioral_features.pkl",
+  "notification_methods": ["cli", "emacs", "log"],
+  "good_alert_message": "✅ Authentic coaching detected!",
+  "bad_alert_message": "⚠️ TOXIC COACHING DETECTED!",
+  "good_behavior_label": "AUTHENTIC", 
+  "bad_behavior_label": "TOXIC",
+  "_vector_source": "hand_curated_behavioral_features.json",
+  "_note": "Uses hand-curated behavioral features to avoid dataset artifacts"
+}

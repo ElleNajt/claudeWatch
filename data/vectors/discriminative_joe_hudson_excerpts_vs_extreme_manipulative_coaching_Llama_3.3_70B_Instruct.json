@@ -1,0 +1,188 @@
+{
+  "generated": "2025-08-29T22:26:05.168834",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/extreme_manipulative_coaching.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "1b7174d8-9b7a-4862-b1fd-9b6aee4eefa8",
+      "index_in_sae": 22773,
+      "label": "Instructions for meditation and spiritual practice",
+      "type": "good"
+    },
+    {
+      "uuid": "fa029e6f-de6b-4248-9263-141b85f1c48d",
+      "index_in_sae": 3334,
+      "label": "Non-dualistic philosophical concepts about the unity of self and reality",
+      "type": "good"
+    },
+    {
+      "uuid": "cb87b241-c3ce-45ce-b5a9-64ee6cd929c6",
+      "index_in_sae": 16623,
+      "label": "Concepts of non-dualism and transcending ego-based perception",
+      "type": "good"
+    },
+    {
+      "uuid": "e93d6ce5-6641-48f8-b11d-8df954d60c8d",
+      "index_in_sae": 11630,
+      "label": "Linguistic connectives establishing abstract philosophical relationships",
+      "type": "good"
+    },
+    {
+      "uuid": "afcf7931-af4a-47ec-bbdb-2c1a7fc69db4",
+      "index_in_sae": 11078,
+      "label": "The assistant should respond with therapeutic acknowledgment and follow-up questions",
+      "type": "good"
+    },
+    {
+      "uuid": "a97d2868-4de1-44aa-9814-708d6ba8e49c",
+      "index_in_sae": 15278,
+      "label": "Buddhist concepts of impermanence and interdependence",
+      "type": "good"
+    },
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "ac3adee2-d8bc-49a6-958c-59f32a4f73cf",
+      "index_in_sae": 40303,
+      "label": "Statistical descriptions of populations or study groups",
+      "type": "good"
+    },
+    {
+      "uuid": "4d786b4b-1a24-4a78-b042-64581b829a1e",
+      "index_in_sae": 45702,
+      "label": "Natural text flow transitions and contextual descriptions",
+      "type": "good"
+    },
+    {
+      "uuid": "fd4bd4bb-c884-4cb7-bff6-817da0c95a8d",
+      "index_in_sae": 36583,
+      "label": "Grammatical constructions for describing goal-directed actions and achievements",
+      "type": "good"
+    },
+    {
+      "uuid": "9fd025f1-3b79-485f-bbfe-1097ffccf75b",
+      "index_in_sae": 53189,
+      "label": "Punctuation marking natural speech patterns in transcribed conversations",
+      "type": "good"
+    },
+    {
+      "uuid": "5a190f4a-296c-46c5-9384-34c6bd2a1ee0",
+      "index_in_sae": 34140,
+      "label": "The assistant should complete a sequence or pattern, especially in mathematical or programming contexts",
+      "type": "good"
+    },
+    {
+      "uuid": "861ee999-cf10-4654-95c6-b1e355817d9f",
+      "index_in_sae": 51059,
+      "label": "Conjunctions and connecting punctuation in explanatory text across languages",
+      "type": "good"
+    },
+    {
+      "uuid": "c1d78156-0394-4639-8434-4a1a83c5f956",
+      "index_in_sae": 26513,
+      "label": "Personal pronouns expressing agency or capability, especially with modal verbs",
+      "type": "good"
+    },
+    {
+      "uuid": "1c64cea9-94ad-4dcf-b18e-d66d1e4256f8",
+      "index_in_sae": 41637,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "c4fe0a74-2c98-4642-9bb8-fdf10593a000",
+      "index_in_sae": 22058,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "2a4b9355-a871-41fa-89ed-0b72efed9402",
+      "index_in_sae": 13884,
+      "label": "Start of a new conversation segment in chat format",
+      "type": "bad"
+    },
+    {
+      "uuid": "ae6c363e-7940-4057-a423-531b0a47dd28",
+      "index_in_sae": 38729,
+      "label": "Start of a new conversation or major topic reset",
+      "type": "bad"
+    },
+    {
+      "uuid": "1016ff98-0b64-4bd4-9540-360295a73fc9",
+      "index_in_sae": 24991,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "facd00c1-1c22-4489-8c6f-20a880d8b5f7",
+      "index_in_sae": 1605,
+      "label": "Start of a new conversation segment or reset",
+      "type": "bad"
+    },
+    {
+      "uuid": "09165b14-28f0-4d31-a9ec-b967d233ad06",
+      "index_in_sae": 39512,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "0d5f0fb6-ca0a-48a5-9a0c-934bcc93fdcd",
+      "index_in_sae": 53950,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "185a6541-407a-4f4a-976c-c36f7bd36dac",
+      "index_in_sae": 59660,
+      "label": "Beginning of new conversation segment marker",
+      "type": "bad"
+    },
+    {
+      "uuid": "9bd5f85f-6771-4290-9428-05d4cdcfa890",
+      "index_in_sae": 8875,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "a5ff5b21-5757-4e02-9a88-d79397535ac4",
+      "index_in_sae": 59936,
+      "label": "Beginning of a new conversation or topic segment",
+      "type": "bad"
+    },
+    {
+      "uuid": "468bc650-8ff9-4273-8d71-64df91fefa2c",
+      "index_in_sae": 12086,
+      "label": "Conversation reset points, especially after problematic exchanges",
+      "type": "bad"
+    },
+    {
+      "uuid": "bd38eb34-b9e8-460a-8451-1c390d26e1bf",
+      "index_in_sae": 37271,
+      "label": "Start of new conversation segment or topic switch",
+      "type": "bad"
+    },
+    {
+      "uuid": "ed2a7d69-e973-4622-a2cf-9f45c090f3c4",
+      "index_in_sae": 21632,
+      "label": "Reset conversation state and establish fresh context boundaries",
+      "type": "bad"
+    },
+    {
+      "uuid": "90691d13-90fb-4e99-b790-7d6fde7d72dd",
+      "index_in_sae": 54874,
+      "label": "Start of a new conversation segment",
+      "type": "bad"
+    }
+  ]
+}

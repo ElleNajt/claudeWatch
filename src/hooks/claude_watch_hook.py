@@ -11,12 +11,30 @@ from pathlib import Path
 from datetime import datetime
 import numpy as np
 
+# Enhanced logging for debugging
+HOOK_LOG_FILE = "/tmp/claudewatch_hook.log"
+
+def log_message(msg):
+    """Log message with timestamp"""
+    with open(HOOK_LOG_FILE, "a") as f:
+        f.write(f"{datetime.now()}: {msg}\n")
+
+log_message(f"ClaudeWatch hook started with args: {sys.argv}")
+log_message(f"Current working directory: {os.getcwd()}")
+log_message(f"Python path: {sys.path[:3]}")  # First 3 entries
+
 # Add project root to path for imports
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
-from core.claude_watch import ClaudeWatch
-from core.config import WatchConfig
+try:
+    log_message("Importing ClaudeWatch modules...")
+    from core.claude_watch import ClaudeWatch
+    from core.config import WatchConfig
+    log_message("Successfully imported ClaudeWatch modules")
+except Exception as e:
+    log_message(f"Failed to import ClaudeWatch modules: {e}")
+    sys.exit(1)
 
 
 def make_json_serializable(obj):
@@ -38,7 +56,7 @@ def make_json_serializable(obj):
         return obj
 
 
-def format_readable_log_entry(log_entry, features=None):
+def format_readable_log_entry(log_entry, features=None, config=None):
     """Format log entry for human readability"""
     readable_entry = {
         "timestamp": log_entry["timestamp"],
@@ -80,7 +98,7 @@ def format_readable_log_entry(log_entry, features=None):
                         feature_contributions.append({
                             "feature": feature["label"],
                             "contribution": shap_val,
-                            "direction": "bad" if shap_val > 0 else "good"
+                            "direction": (config.bad_behavior_label.lower() if shap_val > 0 else config.good_behavior_label.lower()) if config else ("class_1" if shap_val > 0 else "class_0")
                         })
                 
                 # Sort by absolute contribution
@@ -89,11 +107,61 @@ def format_readable_log_entry(log_entry, features=None):
         
         readable_entry["explanation"] = readable_explanation
     
-    # Add activations summary
-    if "good_activations" in log_entry:
+    # Add detailed feature activations
+    if "good_activations" in log_entry and features:
+        good_activations = log_entry["good_activations"]
+        bad_activations = log_entry.get("bad_activations", [])
+        
+        # Get active features with their activation levels
+        active_good_features = []
+        active_bad_features = []
+        
+        # Process good features
+        for i, activation in enumerate(good_activations):
+            if activation > 0.001 and i < len(features):  # Lowered threshold to see more activations
+                feature = features[i]
+                if hasattr(feature, 'label'):
+                    active_good_features.append({
+                        "label": feature.label,
+                        "activation": round(activation, 3),
+                        "uuid": str(getattr(feature, 'uuid', 'unknown'))[:8]
+                    })
+        
+        # Process bad features (assuming they come after good features in the features list)
+        good_count = len(good_activations)
+        for i, activation in enumerate(bad_activations):
+            if activation > 0.0001 and (good_count + i) < len(features):  # Even lower threshold
+                feature = features[good_count + i]
+                if hasattr(feature, 'label'):
+                    active_bad_features.append({
+                        "label": feature.label,
+                        "activation": round(activation, 3),
+                        "uuid": str(getattr(feature, 'uuid', 'unknown'))[:8]
+                    })
+        
+        # Sort by activation level
+        active_good_features.sort(key=lambda x: x["activation"], reverse=True)
+        active_bad_features.sort(key=lambda x: x["activation"], reverse=True)
+        
+        readable_entry["feature_activations"] = {
+            "good_features": active_good_features,
+            "bad_features": active_bad_features,
+            "summary": {
+                "good_features_active": len(active_good_features),
+                "bad_features_active": len(active_bad_features),
+                "total_good_activation": round(sum(good_activations), 3),
+                "total_bad_activation": round(sum(bad_activations), 3)
+            }
+        }
+    elif "good_activations" in log_entry:
+        # Fallback for when features aren't available
+        good_activations = log_entry["good_activations"]
+        bad_activations = log_entry.get("bad_activations", [])
         readable_entry["activations_summary"] = {
-            "good_features_active": len([x for x in log_entry["good_activations"] if x > 0]),
-            "bad_features_active": len([x for x in log_entry.get("bad_activations", []) if x > 0])
+            "good_features_active": len([x for x in good_activations if x > 0.001]),
+            "bad_features_active": len([x for x in bad_activations if x > 0.001]),
+            "total_good_activation": round(sum(good_activations), 3),
+            "total_bad_activation": round(sum(bad_activations), 3)
         }
     
     return readable_entry
@@ -143,12 +211,23 @@ def generate_vectors_if_needed(config_path: str):
         with open(config_path, 'r') as f:
             config_data = json.load(f)
         
-        good_examples_path = config_data["good_examples_path"]
-        bad_examples_path = config_data["bad_examples_path"]
+        # Handle both list and string formats for examples paths
+        good_examples_path = config_data.get("good_examples_path")
+        bad_examples_path = config_data.get("bad_examples_path")
         
-        # Determine expected vector path with model name
-        good_name = Path(good_examples_path).stem
-        bad_name = Path(bad_examples_path).stem
+        # Skip vector generation if using direct vectors or curated vectors
+        if config_data.get("direct_vectors") or config_data.get("_vector_source"):
+            return True
+        
+        if isinstance(good_examples_path, list):
+            good_name = Path(good_examples_path[0]).stem if good_examples_path else "unknown"
+        else:
+            good_name = Path(good_examples_path).stem if good_examples_path else "unknown"
+            
+        if isinstance(bad_examples_path, list):
+            bad_name = Path(bad_examples_path[0]).stem if bad_examples_path else "unknown"  
+        else:
+            bad_name = Path(bad_examples_path).stem if bad_examples_path else "unknown"
         model = config_data.get("model", "meta-llama/Llama-3.3-70B-Instruct")
         model_name = model.split('/')[-1].replace('-', '_')
         project_root = Path(__file__).parent.parent.parent
@@ -181,33 +260,51 @@ def generate_vectors_if_needed(config_path: str):
 def main():
     """Main hook function"""
     
+    log_message("=== ClaudeWatch Hook Main Function Started ===")
+    
     # Configuration  
     CONFIG_PATH = os.environ.get('CLAUDE_WATCH_CONFIG', 
                                  str(Path(__file__).parent.parent.parent / 'configs' / 'coaching_examples.json'))
+    log_message(f"Config path: {CONFIG_PATH}")
     
     # Read hook event from stdin first to get cwd and transcript path
     try:
+        log_message("Reading hook event from stdin...")
         input_data = sys.stdin.read().strip()
+        log_message(f"Raw input data length: {len(input_data)}")
         if not input_data:
+            log_message("No input data received, exiting")
             sys.exit(0)
         event_data = json.loads(input_data)
-    except json.JSONDecodeError:
+        log_message(f"Parsed event data keys: {list(event_data.keys())}")
+        log_message(f"Hook event name: {event_data.get('hook_event_name')}")
+    except json.JSONDecodeError as e:
+        log_message(f"JSON decode error: {e}")
+        sys.exit(0)
+    except Exception as e:
+        log_message(f"Error reading input: {e}")
         sys.exit(0)
     
     # Only process Stop events
     if event_data.get('hook_event_name') != 'Stop':
+        log_message(f"Not a Stop event, exiting. Event name: {event_data.get('hook_event_name')}")
         sys.exit(0)
+    
+    log_message("Processing Stop event...")
     
     # Get project directory from cwd field in hook payload  
     project_dir_str = event_data.get('cwd')
     if project_dir_str:
         project_dir = Path(project_dir_str)
+        log_message(f"Using project directory from cwd: {project_dir}")
     else:
         # Fallback to current directory if cwd not provided
         project_dir = Path.cwd()
+        log_message(f"Using current directory as project dir: {project_dir}")
     
     # Get transcript path for conversation extraction
     transcript_path = event_data.get('transcript_path', '')
+    log_message(f"Transcript path: {transcript_path}")
     
     # Use project directory for logs
     LOG_DIR = project_dir / 'logs'
@@ -293,7 +390,7 @@ def main():
         
         # Make the log entry JSON-serializable and readable
         serializable_log_entry = make_json_serializable(log_entry)
-        readable_log_entry = format_readable_log_entry(serializable_log_entry, watch.features)
+        readable_log_entry = format_readable_log_entry(serializable_log_entry, watch.features, config)
         
         log_file = LOG_DIR / 'claude_watch.log'
         with open(log_file, 'a') as f:

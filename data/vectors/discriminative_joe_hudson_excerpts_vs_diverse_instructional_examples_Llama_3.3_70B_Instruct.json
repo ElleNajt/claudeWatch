@@ -1,0 +1,188 @@
+{
+  "generated": "2025-08-29T21:27:12.463599",
+  "good_examples_path": "/Users/elle/code/claudeWatch/data/training/joe_hudson_excerpts.json",
+  "bad_examples_path": "/Users/elle/code/claudeWatch/data/training/diverse_instructional_examples.json",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "features": [
+    {
+      "uuid": "41efb9ef-9039-44e4-97d6-b0cedf08691a",
+      "index_in_sae": 45462,
+      "label": "Non-violent communication patterns and principles",
+      "type": "good"
+    },
+    {
+      "uuid": "cb444f4d-4d04-4e65-bbb7-3a3481085f35",
+      "index_in_sae": 5335,
+      "label": "Technical setup and configuration states in experimental procedures",
+      "type": "good"
+    },
+    {
+      "uuid": "1c64cea9-94ad-4dcf-b18e-d66d1e4256f8",
+      "index_in_sae": 41637,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "c4fe0a74-2c98-4642-9bb8-fdf10593a000",
+      "index_in_sae": 22058,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "ac3adee2-d8bc-49a6-958c-59f32a4f73cf",
+      "index_in_sae": 40303,
+      "label": "Statistical descriptions of populations or study groups",
+      "type": "good"
+    },
+    {
+      "uuid": "81f2eefa-5869-42f7-b655-abad86ce1a7e",
+      "index_in_sae": 12210,
+      "label": "Narrative transitions that may lead to content guideline violations",
+      "type": "good"
+    },
+    {
+      "uuid": "9402a79e-8b84-44bb-8a94-d6011c38d648",
+      "index_in_sae": 54442,
+      "label": "Self-doubt and internal struggle in personal narratives",
+      "type": "good"
+    },
+    {
+      "uuid": "2a4b9355-a871-41fa-89ed-0b72efed9402",
+      "index_in_sae": 13884,
+      "label": "Start of a new conversation segment in chat format",
+      "type": "good"
+    },
+    {
+      "uuid": "afcf7931-af4a-47ec-bbdb-2c1a7fc69db4",
+      "index_in_sae": 11078,
+      "label": "The assistant should respond with therapeutic acknowledgment and follow-up questions",
+      "type": "good"
+    },
+    {
+      "uuid": "ae6c363e-7940-4057-a423-531b0a47dd28",
+      "index_in_sae": 38729,
+      "label": "Start of a new conversation or major topic reset",
+      "type": "good"
+    },
+    {
+      "uuid": "1016ff98-0b64-4bd4-9540-360295a73fc9",
+      "index_in_sae": 24991,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "facd00c1-1c22-4489-8c6f-20a880d8b5f7",
+      "index_in_sae": 1605,
+      "label": "Start of a new conversation segment or reset",
+      "type": "good"
+    },
+    {
+      "uuid": "1b7174d8-9b7a-4862-b1fd-9b6aee4eefa8",
+      "index_in_sae": 22773,
+      "label": "Instructions for meditation and spiritual practice",
+      "type": "good"
+    },
+    {
+      "uuid": "0d5f0fb6-ca0a-48a5-9a0c-934bcc93fdcd",
+      "index_in_sae": 53950,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "09165b14-28f0-4d31-a9ec-b967d233ad06",
+      "index_in_sae": 39512,
+      "label": "Start of a new conversation segment",
+      "type": "good"
+    },
+    {
+      "uuid": "5d43cd58-2b57-4e20-8576-520205fc91ed",
+      "index_in_sae": 586,
+      "label": "Narrative progression tokens in emotionally charged contexts",
+      "type": "bad"
+    },
+    {
+      "uuid": "5302e636-402b-4ea9-afd1-e9b1105b570d",
+      "index_in_sae": 48670,
+      "label": "The assistant is providing a list of options",
+      "type": "bad"
+    },
+    {
+      "uuid": "9004b31e-cb6f-4490-8255-2c738ff88373",
+      "index_in_sae": 41644,
+      "label": "Linguistic patterns that connect clauses in explanatory text",
+      "type": "bad"
+    },
+    {
+      "uuid": "28884314-b7d6-4aac-be98-42f8d21a0a79",
+      "index_in_sae": 26986,
+      "label": "Grammatical connectors and list formatting across languages",
+      "type": "bad"
+    },
+    {
+      "uuid": "f9c8eb2f-e361-4473-a55e-a2e7bb5bcfa4",
+      "index_in_sae": 44412,
+      "label": "Discussion of hierarchical relationships and connections between concepts",
+      "type": "bad"
+    },
+    {
+      "uuid": "71c7341d-605f-438a-961b-f7ebda12d4e3",
+      "index_in_sae": 26256,
+      "label": "System organization and structural elements",
+      "type": "bad"
+    },
+    {
+      "uuid": "c9ded6c1-e50f-4789-b145-f76ad3a2dd78",
+      "index_in_sae": 28201,
+      "label": "Technical and professional terminology describing systems, processes and capabilities",
+      "type": "bad"
+    },
+    {
+      "uuid": "cdea4be9-0375-45a1-aec5-30075b107771",
+      "index_in_sae": 57227,
+      "label": "The assistant is providing a list of recommendations or instructions",
+      "type": "bad"
+    },
+    {
+      "uuid": "34a0a43e-3782-48c1-b3cd-410cf25cb3b7",
+      "index_in_sae": 24054,
+      "label": "Formal language patterns for requesting salary increases",
+      "type": "bad"
+    },
+    {
+      "uuid": "d44b60ed-db12-43dc-ac45-4fd539f29f66",
+      "index_in_sae": 2063,
+      "label": "Grammatical connectors used in detailed descriptions and explanations",
+      "type": "bad"
+    },
+    {
+      "uuid": "f9d92b41-dd75-47c3-8161-001765f2fd13",
+      "index_in_sae": 11296,
+      "label": "The assistant is converting text into structured lists or bullet points",
+      "type": "bad"
+    },
+    {
+      "uuid": "5fff8303-b0ba-4358-a7d5-a2655dbe295b",
+      "index_in_sae": 63396,
+      "label": "Descriptions establishing character competence and professional capability",
+      "type": "bad"
+    },
+    {
+      "uuid": "c391192b-c0f9-43d3-b0ed-0e65f6f2d7f8",
+      "index_in_sae": 62057,
+      "label": "The assistant is providing structured, well-formatted explanations with clear breaks between ideas",
+      "type": "bad"
+    },
+    {
+      "uuid": "3ab647fe-e282-4ee6-bf4f-5a5a5fce43c7",
+      "index_in_sae": 56054,
+      "label": "Conditional relationships and dependencies between concepts",
+      "type": "bad"
+    },
+    {
+      "uuid": "cbce392c-7dbe-4483-a9eb-771fcfc6352d",
+      "index_in_sae": 39474,
+      "label": "Instructions for improving presentation and public speaking skills",
+      "type": "bad"
+    }
+  ]
+}

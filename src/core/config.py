@@ -6,15 +6,15 @@ Handles configuration loading and validation
 
 import json
 from dataclasses import dataclass
-from typing import List, Union
+from typing import List, Union, Dict
 
 
 @dataclass
 class WatchConfig:
     """Configuration for behavior monitoring"""
 
-    good_examples_path: Union[str, List[str]]
-    bad_examples_path: str
+    good_examples_path: Union[str, List[str]] = None
+    bad_examples_path: str = None
     alert_threshold: float = 2.0  # Alert if bad/good ratio > this
     feature_threshold: float = 0.02  # Show features with activation > this
     alert_strategy: str = "any_bad_feature"  # "any_bad_feature", "ratio", "quality", "logistic_regression"
@@ -32,6 +32,8 @@ class WatchConfig:
     
     # Vector configuration
     _vector_source: str = None  # Optional custom vector file to use instead of auto-generated
+    direct_vectors: Dict = None  # Optional direct vector specification with 'good' and 'bad' lists
+    model_path: str = None  # Optional path to pre-trained classifier model
 
     def __post_init__(self):
         if self.notification_methods is None:
@@ -59,13 +61,26 @@ class WatchConfig:
         """Validate configuration parameters"""
         errors = []
         
-        # Check required paths
-        if not self.good_examples_path:
-            errors.append("good_examples_path is required")
-        elif isinstance(self.good_examples_path, list) and len(self.good_examples_path) == 0:
-            errors.append("good_examples_path list cannot be empty")
-        if not self.bad_examples_path:
-            errors.append("bad_examples_path is required")
+        # Check that either example paths OR direct_vectors are provided
+        has_example_paths = self.good_examples_path and self.bad_examples_path
+        has_direct_vectors = self.direct_vectors is not None
+        
+        if not has_example_paths and not has_direct_vectors:
+            errors.append("Either (good_examples_path AND bad_examples_path) OR direct_vectors must be provided")
+        
+        # If using example paths, validate them
+        if has_example_paths:
+            if isinstance(self.good_examples_path, list) and len(self.good_examples_path) == 0:
+                errors.append("good_examples_path list cannot be empty")
+        
+        # If using direct vectors, validate them
+        if has_direct_vectors:
+            if not isinstance(self.direct_vectors, dict):
+                errors.append("direct_vectors must be a dictionary")
+            elif 'good' not in self.direct_vectors or 'bad' not in self.direct_vectors:
+                errors.append("direct_vectors must have 'good' and 'bad' keys")
+            elif not isinstance(self.direct_vectors['good'], list) or not isinstance(self.direct_vectors['bad'], list):
+                errors.append("direct_vectors 'good' and 'bad' must be lists")
         
         # Check thresholds
         if self.alert_threshold <= 0:
