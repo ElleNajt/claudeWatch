@@ -1,8 +1,8 @@
 # ClaudeWatch
 
-Epistemic status: Fun side project trying to detect claude code being sycophantic me when I use it for coaching.  Also includes some experiments with using SAEs to do this, but using claude code directly works better.
+Epistemic status: Fun side project trying to detect claude code being sycophantic me when I use it for personal coaching.  Also includes some experiments with using SAEs to do this, but using claude code directly works better.
 
-![ClaudeWatch in action](Screenshot%202025-08-30%20at%202.54.26%20AM.png)
+![ClaudeWatch in action](Screenshot.png)
 
 *ClaudeWatch detecting sycophantic behavior in real-time during a Claude Code session*
 
